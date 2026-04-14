@@ -27,6 +27,52 @@ header .subtitle {
   margin: 0 auto;
 }
 
+.error {
+  background: rgba(255, 100, 100, 0.15);
+  border: 2px solid #ff6464;
+  color: #ff9999;
+  padding: 15px 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  animation: slideDown 0.4s ease-out;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 500;
+}
+
+.error .close-btn {
+  background: transparent;
+  border: none;
+  color: #ff6464;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.error .close-btn:hover {
+  color: #ff9999;
+  transform: rotate(90deg);
+}
+
+.success-message {
+  background: rgba(0, 255, 136, 0.15);
+  border: 2px solid #00ff88;
+  color: #00ff88;
+  padding: 15px 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  animation: slideDown 0.4s ease-out;
+  font-weight: 600;
+  text-align: center;
+}
+
 .controls {
   display: flex;
   gap: 15px;
@@ -74,6 +120,21 @@ header .subtitle {
   background: linear-gradient(135deg, #00ff88, #00cc66);
   border-color: #00ff88;
   box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+}
+
+.controls button.create-btn {
+  background: linear-gradient(135deg, #ff6b9d, #ff4757);
+  box-shadow: 0 4px 15px rgba(255, 71, 87, 0.3);
+}
+
+.controls button.create-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(255, 71, 87, 0.4);
+}
+
+.form-container {
+  margin-bottom: 40px;
+  animation: slideDown 0.5s ease-out;
 }
 
 .loading {
@@ -157,5 +218,14 @@ header .subtitle {
 
   .controls button {
     width: 100%;
+  }
+
+  .error {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .error .close-btn {
+    align-self: flex-end;
   }
 }
