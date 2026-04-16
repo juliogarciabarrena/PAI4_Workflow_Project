@@ -40,10 +40,8 @@ jobs:
     - name: Run ZAP baseline scan
       run: |
         docker run --network="host" \
-          owasp/zap2docker-stable \
-          zap-baseline.py \
-          -t http://localhost:3001 \
-          -r zap-report.html
+          ghcr.io/zaproxy/zaproxy:stable \
+          zap-baseline.py -t http://localhost:3000 -r report.html
 
     # 6. Guardar reporte
     - name: Upload ZAP report
