@@ -35,8 +35,10 @@ jobs:
         npm install &&
         npm start &
         sleep 15
-
-    # 6. Ejecutar OWASP ZAP (Docker)
+    #Permisos para generar reporte owasp zap    
+    - name: Fix workspace permissions
+      run: chmod -R 777 .
+    # 7. Ejecutar OWASP ZAP
     - name: Run OWASP ZAP baseline scan
       run: |
         docker run --network="host" \
@@ -44,9 +46,10 @@ jobs:
           ghcr.io/zaproxy/zaproxy:stable \
           zap-baseline.py \
           -t http://localhost:3000 \
-          -r zap-report.html
+          -r zap-report.html \
+          -J zap.json
 
-    # 6. Guardar reporte
+    # 8. Guardar reporte
     - name: Upload ZAP report
       uses: actions/upload-artifact@v4
       with:
