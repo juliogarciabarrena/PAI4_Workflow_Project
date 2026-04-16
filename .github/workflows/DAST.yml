@@ -37,11 +37,14 @@ jobs:
         sleep 15
 
     # 6. Ejecutar OWASP ZAP (Docker)
-    - name: Run ZAP baseline scan
+    - name: Run OWASP ZAP baseline scan
       run: |
         docker run --network="host" \
+          -v $(pwd):/zap/wrk \
           ghcr.io/zaproxy/zaproxy:stable \
-          zap-baseline.py -t http://localhost:3000 -r report.html
+          zap-baseline.py \
+          -t http://localhost:3000 \
+          -r zap-report.html
 
     # 6. Guardar reporte
     - name: Upload ZAP report
