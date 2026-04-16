@@ -48,6 +48,7 @@ jobs:
           -t http://localhost:3000 \
           -r zap-report.html \
           -J zap.json
+          -I
 
     # 8. Guardar reporte
     - name: Upload ZAP report
