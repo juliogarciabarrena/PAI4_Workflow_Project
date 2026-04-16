@@ -1,0 +1,53 @@
+name: Dast Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  dast:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. Clonar repo
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    # 2. Instalar Node
+    - name: Setup Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: 18
+
+    # 4. Levantar backend
+    - name: Start backend
+      run: |
+        cd backend &&
+        npm install &&
+        npm start &
+        sleep 15
+    # 5. Levantar frontend
+    - name: Start frontend
+      run: |
+        cd frontend &&
+        npm install &&
+        npm start &
+        sleep 15
+
+    # 6. Ejecutar OWASP ZAP (Docker)
+    - name: Run ZAP baseline scan
+      run: |
+        docker run --network="host" \
+          owasp/zap2docker-stable \
+          zap-baseline.py \
+          -t http://localhost:3001 \
+          -r zap-report.html
+
+    # 6. Guardar reporte
+    - name: Upload ZAP report
+      uses: actions/upload-artifact@v4
+      with:
+        name: zap-report
+        path: zap-report.html
