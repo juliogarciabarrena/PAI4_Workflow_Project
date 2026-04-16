@@ -47,7 +47,7 @@ jobs:
           zap-baseline.py \
           -t http://localhost:3000 \
           -r zap-report.html \
-          -J zap.json
+          -J zap.json \
           -I
 
     # 8. Guardar reporte
