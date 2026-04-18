@@ -73,7 +73,7 @@ const getNextId = () => {
 };
 
 // Input validation helper
-const validateCelestialBody = (body) => {
+const validateCelestialBody = (body, currentId = null) => {
   const errors = [];
 
   if (!body.name || typeof body.name !== 'string' || body.name.trim().length === 0) {
@@ -96,7 +96,13 @@ const validateCelestialBody = (body) => {
     errors.push('Moons must be a non-negative number');
   }
 
-  if (planets.some(p => p.name.toLowerCase() === body.name?.toLowerCase())) {
+  if (
+    planets.some(
+      p =>
+        p.name.toLowerCase() === body.name?.toLowerCase() &&
+        p.id !== currentId
+    )
+  ) {
     errors.push('A celestial body with this name already exists');
   }
 
@@ -269,7 +275,7 @@ app.put('/api/planets/:id', (req, res) => {
     };
 
     // Validate updated data
-    const validationErrors = validateCelestialBody(updatedData);
+    const validationErrors = validateCelestialBody(updatedData, currentPlanet.id);
 
     if (validationErrors.length > 0) {
       return res.status(400).json({
@@ -340,9 +346,11 @@ app.use((req, res) => {
   });
 });
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`🚀 Astronomy API server running on port ${PORT}`);
-});
+// Start server only when running directly, not when imported by tests
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`🚀 Astronomy API server running on port ${PORT}`);
+  });
+}
 
 module.exports = app;
