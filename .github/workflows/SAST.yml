@@ -36,11 +36,11 @@ jobs:
     # ========== Instalar dependencias ==========
     - name: Install Backend dependencies
       working-directory: ./backend
-      run: npm ci
+      run: npm install
 
     - name: Install Frontend dependencies
       working-directory: ./frontend
-      run: npm ci
+      run: npm install
 
     # ========== Generar coverage reports ==========
     - name: Generate Backend coverage
@@ -64,11 +64,26 @@ jobs:
         find frontend/coverage -type f -name "*.xml" -o -name "*.json" 2>/dev/null || echo "No coverage files found"
 
     # ========== SonarQube Scanner ==========
-    - name: SonarQube Scan
+    - name: SonarQube Scan Backend
       uses: SonarSource/sonarqube-scan-action@master
+      with:
+        projectBaseDir: backend
+        args: >
+          -Dsonar.projectKey=PAI4-backend
       env:
         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL || 'http://localhost:9000' }}
-        SONAR_LOGIN: ${{ secrets.SONAR_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      continue-on-error: true
+
+    - name: SonarQube Scan Frontend
+      uses: SonarSource/sonarqube-scan-action@master
+      with:
+        projectBaseDir: frontend
+        args: >
+          -Dsonar.projectKey=PAI4-frontend
+      env:
+        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL || 'http://localhost:9000' }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       continue-on-error: true
 
     # ========== SonarQube Quality Gate ==========
@@ -77,7 +92,7 @@ jobs:
       timeout-minutes: 5
       env:
         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL || 'http://localhost:9000' }}
-        SONAR_LOGIN: ${{ secrets.SONAR_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       continue-on-error: true
 
   # ============================================================================
@@ -99,7 +114,7 @@ jobs:
     # ========== Backend ESLint ==========
     - name: Install Backend dependencies
       working-directory: ./backend
-      run: npm ci
+      run: npm install
 
     - name: Run Backend ESLint
       working-directory: ./backend
@@ -120,7 +135,7 @@ jobs:
     # ========== Frontend ESLint ==========
     - name: Install Frontend dependencies
       working-directory: ./frontend
-      run: npm ci
+      run: npm install
 
     - name: Analyze Frontend code style
       working-directory: ./frontend
@@ -171,7 +186,7 @@ jobs:
     - name: Backend - npm audit
       working-directory: ./backend
       run: |
-        npm ci
+        npm install
         echo "🔍 Running security audit on backend dependencies..."
         npm audit --production 2>&1 || true
       continue-on-error: true
@@ -188,7 +203,7 @@ jobs:
     - name: Frontend - npm audit
       working-directory: ./frontend
       run: |
-        npm ci
+        npm install
         echo "🔍 Running security audit on frontend dependencies..."
         npm audit --production 2>&1 || true
       continue-on-error: true
