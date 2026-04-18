@@ -125,7 +125,7 @@ jobs:
       continue-on-error: true
 
     - name: Upload Backend ESLint report
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: eslint-reports
         path: backend/eslint-report.json
@@ -230,7 +230,7 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Download artifacts
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       continue-on-error: true
 
     - name: Generate SAST Report
