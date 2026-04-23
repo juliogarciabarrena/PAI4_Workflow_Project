@@ -94,7 +94,7 @@ jobs:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       with:
         args: >
-          -Dsonar.projectKey=astronomy-explorer
+          -Dsonar.projectKey=juliogarciabarrena
       continue-on-error: true
 
   # ============================================================================
