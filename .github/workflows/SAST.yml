@@ -94,7 +94,7 @@ jobs:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       with:
         args: >
-          -Dsonar.projectKey=astronomy-project
+          -Dsonar.projectKey=PAI4_Workflow_Project
           -Dsonar.organization=juliogarciabarrena
       continue-on-error: false
 
