@@ -94,9 +94,9 @@ jobs:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       with:
         args: >
-          -Dsonar.projectKey=juliogarciabarrena
-          -Dsonar.organization=Julio Garcia Barrena
-      continue-on-error: true
+          -Dsonar.projectKey=astronomy-project
+          -Dsonar.organization=juliogarciabarrena
+      continue-on-error: false
 
   # ============================================================================
   # Semgrep - SAST rápido y offline
@@ -117,7 +117,7 @@ jobs:
           p/owasp-top-ten
           p/cwe-top-25
           p/nodejs
-      continue-on-error: true
+      continue-on-error: false
 
   # ============================================================================
   # Security Audit - Análisis de seguridad en tiempo de ejecución
@@ -150,7 +150,7 @@ jobs:
         echo "Checking for known dangerous patterns..."
         grep -r "eval(" src/ || echo "✓ No eval() found"
         grep -r "require(.*require\." src/ || echo "✓ No dynamic requires found"
-      continue-on-error: true
+      continue-on-error: false
 
     # ========== Frontend security audit ==========
     - name: Frontend - npm audit
@@ -159,7 +159,7 @@ jobs:
         npm ci
         echo "🔍 Running security audit on frontend dependencies..."
         npm audit --production 2>&1 || true
-      continue-on-error: true
+      continue-on-error: false
 
     - name: Frontend - Check for dangerous patterns
       working-directory: ./frontend
@@ -168,7 +168,7 @@ jobs:
         grep -r "dangerouslySetInnerHTML" src/ || echo "✓ No dangerouslySetInnerHTML found"
         grep -r "eval(" src/ || echo "✓ No eval() found"
         grep -r "innerHTML" src/ || echo "✓ No innerHTML found"
-      continue-on-error: true
+      continue-on-error: false
 
   # ============================================================================
   # SAST Summary Report
