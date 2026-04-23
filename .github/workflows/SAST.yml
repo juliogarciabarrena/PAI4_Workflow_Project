@@ -95,6 +95,7 @@ jobs:
       with:
         args: >
           -Dsonar.projectKey=juliogarciabarrena
+          -Dsonar.organization=Julio Garcia Barrena
       continue-on-error: true
 
   # ============================================================================
