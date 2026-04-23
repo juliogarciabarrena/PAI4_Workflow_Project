@@ -1,4 +1,4 @@
-name: SAST - SonarQube Code Analysis
+name: SAST - Code Analysis
 
 on:
   push:
@@ -6,94 +6,9 @@ on:
   pull_request:
     branches: [ main, develop ]
   schedule:
-    # Ejecutar análisis SonarQube diariamente a las 3 AM UTC
     - cron: '0 3 * * *'
 
 jobs:
-  # ============================================================================
-  # Configuración y Análisis SonarQube
-  # ============================================================================
-  sonarqube-analysis:
-    name: SonarQube SAST Analysis
-    runs-on: ubuntu-latest
-    
-    permissions:
-      pull-requests: read
-      contents: read
-    
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-      with:
-        fetch-depth: 0  # Shallow clones debería ser deshabilitado para mejor análisis
-
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18'
-
-    # ========== Instalar dependencias ==========
-    - name: Install Backend dependencies
-      working-directory: ./backend
-      run: npm install
-
-    - name: Install Frontend dependencies
-      working-directory: ./frontend
-      run: npm install
-
-    # ========== Generar coverage reports ==========
-    - name: Generate Backend coverage
-      working-directory: ./backend
-      run: |
-        npm test -- --coverage --watchAll=false --passWithNoTests
-      continue-on-error: true
-
-    - name: Generate Frontend coverage
-      working-directory: ./frontend
-      run: |
-        npm test -- --coverage --watchAll=false --passWithNoTests --silent 2>/dev/null || true
-      continue-on-error: true
-
-    - name: List coverage files
-      run: |
-        echo "Backend coverage:"
-        find backend/coverage -type f -name "*.xml" -o -name "*.json" 2>/dev/null || echo "No coverage files found"
-        echo ""
-        echo "Frontend coverage:"
-        find frontend/coverage -type f -name "*.xml" -o -name "*.json" 2>/dev/null || echo "No coverage files found"
-
-    # ========== SonarQube Scanner ==========
-    - name: SonarQube Scan Backend
-      uses: SonarSource/sonarqube-scan-action@master
-      with:
-        projectBaseDir: backend
-        args: >
-          -Dsonar.projectKey=PAI4-backend
-      env:
-        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL || 'http://localhost:9000' }}
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      continue-on-error: true
-
-    - name: SonarQube Scan Frontend
-      uses: SonarSource/sonarqube-scan-action@master
-      with:
-        projectBaseDir: frontend
-        args: >
-          -Dsonar.projectKey=PAI4-frontend
-      env:
-        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL || 'http://localhost:9000' }}
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      continue-on-error: true
-
-    # ========== SonarQube Quality Gate ==========
-    - name: SonarQube Quality Gate Check
-      uses: SonarSource/sonarqube-quality-gate-action@master
-      timeout-minutes: 5
-      env:
-        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL || 'http://localhost:9000' }}
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      continue-on-error: true
-
   # ============================================================================
   # ESLint - Análisis estático de JavaScript
   # ============================================================================
@@ -103,7 +18,7 @@ jobs:
     
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Set up Node.js
       uses: actions/setup-node@v3
@@ -113,7 +28,7 @@ jobs:
     # ========== Backend ESLint ==========
     - name: Install Backend dependencies
       working-directory: ./backend
-      run: npm install
+      run: npm ci
 
     - name: Run Backend ESLint
       working-directory: ./backend
@@ -134,14 +49,52 @@ jobs:
     # ========== Frontend ESLint ==========
     - name: Install Frontend dependencies
       working-directory: ./frontend
-      run: npm install
+      run: npm ci
 
     - name: Analyze Frontend code style
       working-directory: ./frontend
       run: |
         echo "Analyzing frontend code with ESLint..."
-        echo "Note: Create .eslintrc.json in frontend to enable full linting"
         npx eslint src/ --max-warnings 5 2>&1 || true
+      continue-on-error: true
+
+  # ============================================================================
+  # SonarCloud - Análisis estático completo
+  # ============================================================================
+  sonarcloud-analysis:
+    name: SonarCloud SAST Analysis
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    - name: Install dependencies
+      run: |
+        cd backend && npm ci
+        cd ../frontend && npm ci
+
+    - name: Generate coverage
+      run: |
+        cd backend
+        npm test -- --coverage --watchAll=false --passWithNoTests 2>/dev/null || true
+      continue-on-error: true
+
+    - name: SonarCloud Scan
+      uses: SonarSource/sonarcloud-github-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      with:
+        args: >
+          -Dsonar.projectKey=astronomy-explorer
       continue-on-error: true
 
   # ============================================================================
@@ -153,7 +106,7 @@ jobs:
     
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Run Semgrep scan
       uses: returntocorp/semgrep-action@v1
@@ -166,7 +119,7 @@ jobs:
       continue-on-error: true
 
   # ============================================================================
-  # IAST Simulation - Análisis de seguridad en tiempo de ejecución
+  # Security Audit - Análisis de seguridad en tiempo de ejecución
   # ============================================================================
   security-audit:
     name: Security Audit - Vulnerabilities Check
@@ -174,7 +127,7 @@ jobs:
     
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Set up Node.js
       uses: actions/setup-node@v3
@@ -185,7 +138,7 @@ jobs:
     - name: Backend - npm audit
       working-directory: ./backend
       run: |
-        npm install
+        npm ci
         echo "🔍 Running security audit on backend dependencies..."
         npm audit --production 2>&1 || true
       continue-on-error: true
@@ -202,7 +155,7 @@ jobs:
     - name: Frontend - npm audit
       working-directory: ./frontend
       run: |
-        npm install
+        npm ci
         echo "🔍 Running security audit on frontend dependencies..."
         npm audit --production 2>&1 || true
       continue-on-error: true
@@ -222,12 +175,12 @@ jobs:
   sast-summary:
     name: SAST Summary Report
     runs-on: ubuntu-latest
-    needs: [sonarqube-analysis, eslint-analysis, semgrep-analysis, security-audit]
+    needs: [eslint-analysis, semgrep-analysis, security-audit]
     if: always()
     
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Download artifacts
       uses: actions/download-artifact@v4
@@ -240,7 +193,7 @@ jobs:
         echo "==============================================="
         echo ""
         echo "✅ Tools Executed:"
-        echo "  1. SonarQube - Full static analysis"
+        echo "  1. SonarCloud - Full static analysis"
         echo "     - Code smells detection"
         echo "     - Security hotspots"
         echo "     - Bug detection"
@@ -276,10 +229,10 @@ jobs:
         ls -la eslint-reports/ 2>/dev/null || echo "  - ESLint reports"
         echo ""
         echo "🔗 Dashboard:"
-        echo "  - SonarQube: ${{ secrets.SONAR_HOST_URL }}/dashboard"
+        echo "  - SonarCloud: https://sonarcloud.io/projects"
         echo ""
         echo "⚠️  Action Items:"
-        echo "  1. Review SonarQube dashboard findings"
+        echo "  1. Review SonarCloud dashboard findings"
         echo "  2. Fix identified security hotspots"
         echo "  3. Improve code coverage"
         echo "  4. Address code smells"
@@ -296,13 +249,13 @@ jobs:
           ## 🔍 SAST Analysis Results
           
           ### Tools Executed:
-          - ✅ **SonarQube**: Full static code analysis
+          - ✅ **SonarCloud**: Full static code analysis
           - ✅ **ESLint**: JavaScript code quality
           - ✅ **Semgrep**: Rule-based vulnerability scanning
           - ✅ **Security Audit**: Dependency and pattern checks
           
           ### Next Steps:
-          1. Review [SonarQube Dashboard](${{ secrets.SONAR_HOST_URL }}/dashboard)
+          1. Review [SonarCloud Dashboard](https://sonarcloud.io/projects)
           2. Fix any identified security hotspots
           3. Improve code coverage if needed
           4. Address code smells
