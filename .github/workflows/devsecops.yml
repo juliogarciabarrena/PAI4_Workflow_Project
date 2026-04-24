@@ -2,6 +2,8 @@ name: Test DefectDojo Connection
 
 on:
   workflow_dispatch:
+  push:
+    branches: [infrastructure-as-code]
 
 jobs:
   test-defectdojo:
@@ -12,8 +14,17 @@ jobs:
       DEFECTDOJO_TOKEN: ${{ secrets.DEFECTDOJO_TOKEN }}
 
     steps:
+      - name: Probar variables
+        run: |
+          echo "DEFECTDOJO_URL configurado: $DEFECTDOJO_URL"
+          if [ -z "$DEFECTDOJO_TOKEN" ]; then
+            echo "DEFECTDOJO_TOKEN no está configurado"
+            exit 1
+          fi
+
       - name: Probar conexión con DefectDojo
         run: |
-          curl -sS -H "Authorization: Token ${DEFECTDOJO_TOKEN}" \
+          curl -sS -i \
+            -H "Authorization: Token ${DEFECTDOJO_TOKEN}" \
             -H "ngrok-skip-browser-warning: true" \
             "${DEFECTDOJO_URL}/api/v2/products/?limit=1"
