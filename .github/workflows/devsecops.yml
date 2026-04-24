@@ -1,4 +1,4 @@
-name: Test DefectDojo Connection
+name: Test DefectDojo Upload
 
 on:
   workflow_dispatch:
@@ -6,7 +6,7 @@ on:
     branches: [infrastructure-as-code]
 
 jobs:
-  test-defectdojo:
+  upload-semgrep:
     runs-on: ubuntu-latest
 
     env:
@@ -14,17 +14,41 @@ jobs:
       DEFECTDOJO_TOKEN: ${{ secrets.DEFECTDOJO_TOKEN }}
 
     steps:
-      - name: Probar variables
-        run: |
-          echo "DEFECTDOJO_URL configurado: $DEFECTDOJO_URL"
-          if [ -z "$DEFECTDOJO_TOKEN" ]; then
-            echo "DEFECTDOJO_TOKEN no está configurado"
-            exit 1
-          fi
+      - name: Descargar código
+        uses: actions/checkout@v4
 
-      - name: Probar conexión con DefectDojo
+      - name: Crear carpeta de reportes
+        run: mkdir -p reports
+
+      - name: Ejecutar Semgrep
+        continue-on-error: true
         run: |
-          curl -sS -i \
-            -H "Authorization: Token ${DEFECTDOJO_TOKEN}" \
-            -H "ngrok-skip-browser-warning: true" \
-            "${DEFECTDOJO_URL}/api/v2/products/?limit=1"
+          docker run --rm -v "${PWD}:/src" semgrep/semgrep semgrep scan \
+            --config=p/owasp-top-ten \
+            --json \
+            -o /src/reports/semgrep.json \
+            /src || true
+
+      - name: Comprobar que el reporte existe
+        run: |
+          ls -la reports
+          head -c 500 reports/semgrep.json || true
+
+      - name: Preparar script de subida
+        run: |
+          sed -i 's/\r$//' scripts/upload_to_defectdojo.sh
+          chmod +x scripts/upload_to_defectdojo.sh
+
+      - name: Subir Semgrep a DefectDojo
+        run: |
+          ./scripts/upload_to_defectdojo.sh \
+            "Semgrep JSON Report" \
+            "reports/semgrep.json" \
+            "SAST Semgrep"
+
+      - name: Guardar reporte como artefacto
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: semgrep-report
+          path: reports/semgrep.json
