@@ -7,17 +7,21 @@ TEST_TITLE="$3"
 
 if [ ! -f "$REPORT_FILE" ]; then
   echo "No existe el reporte: $REPORT_FILE"
-  exit 0
+  exit 1
 fi
 
-echo "Subiendo $REPORT_FILE a DefectDojo como $SCAN_TYPE"
+echo "Subiendo reporte a DefectDojo"
+echo "Scan type: $SCAN_TYPE"
+echo "Reporte: $REPORT_FILE"
+echo "Test title: $TEST_TITLE"
 
-curl -sS -X POST "${DEFECTDOJO_URL}/api/v2/reimport-scan/" \
+curl --fail-with-body -sS -X POST "${DEFECTDOJO_URL}/api/v2/reimport-scan/" \
   -H "Authorization: Token ${DEFECTDOJO_TOKEN}" \
   -H "accept: application/json" \
   -H "ngrok-skip-browser-warning: true" \
   -F "scan_type=${SCAN_TYPE}" \
   -F "file=@${REPORT_FILE}" \
+  -F "product_type_name=DevSecOps" \
   -F "product_name=Astronomy App" \
   -F "engagement_name=GitHub Actions DevSecOps" \
   -F "test_title=${TEST_TITLE}" \
