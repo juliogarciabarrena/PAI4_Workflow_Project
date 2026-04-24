@@ -2,8 +2,6 @@ name: Test DefectDojo Upload
 
 on:
   workflow_dispatch:
-  push:
-    branches: [infrastructure-as-code]
 
 jobs:
   upload-semgrep:
@@ -32,7 +30,8 @@ jobs:
       - name: Comprobar que el reporte existe
         run: |
           ls -la reports
-          head -c 500 reports/semgrep.json || true
+          test -s reports/semgrep.json
+          head -c 500 reports/semgrep.json
 
       - name: Preparar script de subida
         run: |
