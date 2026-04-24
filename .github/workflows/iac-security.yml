@@ -2,9 +2,9 @@ name: IaC Security Scan
 
 on:
   push:
-    branches: [ infrastructure-as-code ]
+    branches: [ main, develop, infrastructure-as-code ]
   pull_request:
-    branches: [ infrastructure-as-code ]
+    branches: [ main, develop, infrastructure-as-code ]
   workflow_dispatch:
 
 jobs:
