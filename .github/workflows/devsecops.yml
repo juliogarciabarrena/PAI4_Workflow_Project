@@ -1,0 +1,19 @@
+name: Test DefectDojo Connection
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-defectdojo:
+    runs-on: ubuntu-latest
+
+    env:
+      DEFECTDOJO_URL: ${{ secrets.DEFECTDOJO_URL }}
+      DEFECTDOJO_TOKEN: ${{ secrets.DEFECTDOJO_TOKEN }}
+
+    steps:
+      - name: Probar conexión con DefectDojo
+        run: |
+          curl -sS -H "Authorization: Token ${DEFECTDOJO_TOKEN}" \
+            -H "ngrok-skip-browser-warning: true" \
+            "${DEFECTDOJO_URL}/api/v2/products/?limit=1"
