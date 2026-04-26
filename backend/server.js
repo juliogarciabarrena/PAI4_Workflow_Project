@@ -368,25 +368,21 @@ app.get('/api/planets/name/:name', (req, res) => {
   }
 });
 
-// ⚠️ VULNERABILIDAD: endpoint HTML con XSS reflejado via query param
-app.get('/search', (req, res) => {
-  const query = req.query.q || '';
-  const planet = planets.find(p => p.name.toLowerCase() === query.toLowerCase());
-  
-  res.setHeader('Content-Type', 'text/html');
-  res.send(`
-    <html>
-      <body>
-        <h1>Search results for: ${query}</h1>
-        ${planet 
-          ? `<p>Found: ${planet.name}</p>` 
-          : `<p>No planet found with name: ${query}</p>`
-        }
-      </body>
-    </html>
-  `);
-});
+const fs = require('fs');
+const path = require('path');
 
+// ⚠️ VULNERABILIDAD: Path Traversal - HIGH RISK
+app.get('/api/files', (req, res) => {
+  const filename = req.query.file;
+  const filePath = '/tmp/' + filename; // Sin sanitizar
+  
+  try {
+    const content = fs.readFileSync(filePath, 'utf8');
+    res.status(200).send(content);
+  } catch (error) {
+    res.status(404).send(`File not found: ${filePath}`);
+  }
+});
 // 404 handler
 app.use((req, res) => {
   res.status(404).json({

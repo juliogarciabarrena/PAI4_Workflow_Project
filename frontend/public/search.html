@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
-<head><title>Planet Search</title></head>
+<head><title>File Explorer</title></head>
 <body>
-  <h1>Planet Search</h1>
-  <form action="/search" method="GET">
-    <input type="text" name="q" placeholder="Search planet..." />
-    <button type="submit">Search</button>
+  <h1>File Explorer</h1>
+  <form action="http://localhost:3001/api/files" method="GET">
+    <input type="text" name="file" value="planets.txt" />
+    <button type="submit">Get File</button>
   </form>
 </body>
 </html>
