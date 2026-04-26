@@ -49,6 +49,16 @@ jobs:
           -r zap-report.html \
           -J zap.json \
           -I
+    - name: Run OWASP ZAP scan on backend
+      run: |
+        docker run --network="host" \
+          -v $(pwd):/zap/wrk \
+          ghcr.io/zaproxy/zaproxy:stable \
+          zap-full-scan.py \        
+          -t http://localhost:3001 \
+          -r zap-report-backend.html \
+          -J zap-backend.json \
+          -I
 
     # 8. Guardar reporte
     - name: Upload ZAP report
