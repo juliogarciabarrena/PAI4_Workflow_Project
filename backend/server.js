@@ -368,6 +368,25 @@ app.get('/api/planets/name/:name', (req, res) => {
   }
 });
 
+// ⚠️ VULNERABILIDAD: endpoint HTML con XSS reflejado via query param
+app.get('/search', (req, res) => {
+  const query = req.query.q || '';
+  const planet = planets.find(p => p.name.toLowerCase() === query.toLowerCase());
+  
+  res.setHeader('Content-Type', 'text/html');
+  res.send(`
+    <html>
+      <body>
+        <h1>Search results for: ${query}</h1>
+        ${planet 
+          ? `<p>Found: ${planet.name}</p>` 
+          : `<p>No planet found with name: ${query}</p>`
+        }
+      </body>
+    </html>
+  `);
+});
+
 // 404 handler
 app.use((req, res) => {
   res.status(404).json({
