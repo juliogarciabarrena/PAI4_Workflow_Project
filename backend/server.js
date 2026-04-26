@@ -368,21 +368,6 @@ app.get('/api/planets/name/:name', (req, res) => {
   }
 });
 
-const fs = require('fs');
-const path = require('path');
-
-// ⚠️ VULNERABILIDAD: Path Traversal - HIGH RISK
-app.get('/api/files', (req, res) => {
-  const filename = req.query.file;
-  const filePath = '/tmp/' + filename; // Sin sanitizar
-  
-  try {
-    const content = fs.readFileSync(filePath, 'utf8');
-    res.status(200).send(content);
-  } catch (error) {
-    res.status(404).send(`File not found: ${filePath}`);
-  }
-});
 // 404 handler
 app.use((req, res) => {
   res.status(404).json({
