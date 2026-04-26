@@ -145,6 +145,36 @@ function App() {
           </button>
         </div>
 
+        <div className="search-container">
+          <input
+            type="text"
+            id="search-input"
+            placeholder="Search planet by name..."
+            onKeyDown={async (e) => {
+              if (e.key === 'Enter') {
+                const query = e.target.value;
+                const response = await fetch(`http://localhost:3001/api/planets/name/${query}`);
+                const text = await response.text();
+                // ⚠️ VULNERABILIDAD: innerHTML sin sanitizar
+                document.getElementById('search-result').innerHTML = text;
+              }
+            }}
+          />
+          <button
+            id="search-btn"
+            onClick={async () => {
+              const query = document.getElementById('search-input').value;
+              const response = await fetch(`http://localhost:3001/api/planets/name/${query}`);
+              const text = await response.text();
+              // ⚠️ VULNERABILIDAD: innerHTML sin sanitizar
+              document.getElementById('search-result').innerHTML = text;
+            }}
+          >
+            🔍 Search
+          </button>
+          <div id="search-result"></div>
+        </div>
+
         {showForm && (
           <div className="form-container">
             <CelestialBodyForm 

@@ -39,16 +39,18 @@ jobs:
     - name: Fix workspace permissions
       run: chmod -R 777 .
     # 7. Ejecutar OWASP ZAP
-    - name: Run OWASP ZAP baseline scan
+    - name: Run OWASP ZAP full scan
       run: |
         docker run --network="host" \
           -v $(pwd):/zap/wrk \
           ghcr.io/zaproxy/zaproxy:stable \
-          zap-baseline.py \
+          zap-full-scan.py \
           -t http://localhost:3000 \
+          -j \
           -r zap-report.html \
           -J zap.json \
           -I
+
     - name: Run OWASP ZAP full scan on backend
       run: |
         docker run --network="host" \
