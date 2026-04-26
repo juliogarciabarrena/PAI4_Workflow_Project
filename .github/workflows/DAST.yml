@@ -56,8 +56,10 @@ jobs:
           ghcr.io/zaproxy/zaproxy:stable \
           zap-full-scan.py \
           -t http://localhost:3001 \
+          -n /zap/wrk/zap.context \
           -r zap-report-backend.html \
           -J zap-backend.json \
+          -z "-config spider.seedUrls=/zap/wrk/zap-urls.txt" \
           -I
 
     # 8. Guardar reporte

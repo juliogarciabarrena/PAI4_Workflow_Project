@@ -1,0 +1,6 @@
+http://localhost:3001/health
+http://localhost:3001/api/planets
+http://localhost:3001/api/planets/1
+http://localhost:3001/api/planets/name/Earth
+http://localhost:3001/api/planets/name/<script>alert(1)</script>
+http://localhost:3001/api/planets/type/Terrestrial
