@@ -167,7 +167,6 @@ jobs:
 
     - name: Snyk Auth
       run: snyk auth ${{ secrets.SNYK_TOKEN }}
-      if: secrets.SNYK_TOKEN != ''
       continue-on-error: true
 
     - name: Snyk Backend test

@@ -25,6 +25,9 @@ jobs:
       with:
         node-version: '18'
 
+    - name: Create SAST reports directory
+      run: mkdir -p reports/SAST
+
     # ========== Backend ESLint ==========
     - name: Install Backend dependencies
       working-directory: ./backend
@@ -35,7 +38,7 @@ jobs:
       id: backend-eslint
       run: |
         echo "# ESLint Results - Backend" >> $GITHUB_STEP_SUMMARY
-        npx eslint . --format json --output-file eslint-report.json 2>&1 || true
+        npx eslint . --format json --output-file ../reports/SAST/eslint-backend-report.json 2>&1 || true
         npx eslint . --format stylish || true
       continue-on-error: true
 
@@ -43,8 +46,8 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: eslint-reports
-        path: backend/eslint-report.json
-      continue-on-error: true
+        path: reports/SAST/eslint-backend-report.json
+      continue-on-error: false
 
     # ========== Frontend ESLint ==========
     - name: Install Frontend dependencies
@@ -55,8 +58,16 @@ jobs:
       working-directory: ./frontend
       run: |
         echo "Analyzing frontend code with ESLint..."
+        npx eslint src/ --format json --output-file ../reports/SAST/eslint-frontend-report.json 2>&1 || true
         npx eslint src/ --max-warnings 5 2>&1 || true
-      continue-on-error: true
+      continue-on-error: false
+
+    - name: Upload Frontend ESLint report
+      uses: actions/upload-artifact@v4
+      with:
+        name: eslint-frontend-reports
+        path: reports/SAST/eslint-frontend-report.json
+      continue-on-error: false
 
   # ============================================================================
   # SonarCloud - Análisis estático completo
@@ -109,14 +120,31 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Run Semgrep scan
-      uses: returntocorp/semgrep-action@v1
+    - name: Create SAST reports directory
+      run: mkdir -p reports/SAST
+
+    - name: Run Semgrep scan and generate JSON report
+      run: |
+        docker run --rm -v "${PWD}:/src" semgrep/semgrep semgrep scan \
+          --config=p/security-audit \
+          --config=p/owasp-top-ten \
+          --config=p/cwe-top-25 \
+          --config=p/nodejs \
+          --json \
+          -o /src/reports/SAST/semgrep-report.json \
+          /src || true
+      continue-on-error: false
+
+    - name: Validate Semgrep report
+      run: |
+        ls -la reports/SAST
+        test -s reports/SAST/semgrep-report.json
+
+    - name: Upload Semgrep report
+      uses: actions/upload-artifact@v4
       with:
-        config: >-
-          p/security-audit
-          p/owasp-top-ten
-          p/cwe-top-25
-          p/nodejs
+        name: semgrep-sast-report
+        path: reports/SAST/semgrep-report.json
       continue-on-error: false
 
   # ============================================================================
@@ -135,12 +163,16 @@ jobs:
       with:
         node-version: '18'
 
+    - name: Create SAST reports directory
+      run: mkdir -p reports/SAST
+
     # ========== Backend security audit ==========
     - name: Backend - npm audit
       working-directory: ./backend
       run: |
         npm ci
         echo "🔍 Running security audit on backend dependencies..."
+        npm audit --production --json > ../reports/SAST/npm-audit-backend.json 2>/dev/null || true
         npm audit --production 2>&1 || true
       continue-on-error: true
 
@@ -148,8 +180,11 @@ jobs:
       working-directory: ./backend
       run: |
         echo "Checking for known dangerous patterns..."
-        grep -r "eval(" src/ || echo "✓ No eval() found"
-        grep -r "require(.*require\." src/ || echo "✓ No dynamic requires found"
+        {
+          echo "[Backend] Pattern checks"
+          grep -r "eval(" src/ || echo "✓ No eval() found"
+          grep -r "require(.*require\." src/ || echo "✓ No dynamic requires found"
+        } | tee ../reports/SAST/security-patterns-backend.txt
       continue-on-error: false
 
     # ========== Frontend security audit ==========
@@ -158,6 +193,7 @@ jobs:
       run: |
         npm ci
         echo "🔍 Running security audit on frontend dependencies..."
+        npm audit --production --json > ../reports/SAST/npm-audit-frontend.json 2>/dev/null || true
         npm audit --production 2>&1 || true
       continue-on-error: false
 
@@ -165,9 +201,19 @@ jobs:
       working-directory: ./frontend
       run: |
         echo "Checking for security issues..."
-        grep -r "dangerouslySetInnerHTML" src/ || echo "✓ No dangerouslySetInnerHTML found"
-        grep -r "eval(" src/ || echo "✓ No eval() found"
-        grep -r "innerHTML" src/ || echo "✓ No innerHTML found"
+        {
+          echo "[Frontend] Pattern checks"
+          grep -r "dangerouslySetInnerHTML" src/ || echo "✓ No dangerouslySetInnerHTML found"
+          grep -r "eval(" src/ || echo "✓ No eval() found"
+          grep -r "innerHTML" src/ || echo "✓ No innerHTML found"
+        } | tee ../reports/SAST/security-patterns-frontend.txt
+      continue-on-error: false
+
+    - name: Upload Security Audit reports
+      uses: actions/upload-artifact@v4
+      with:
+        name: security-audit-sast-reports
+        path: reports/SAST
       continue-on-error: false
 
   # ============================================================================
@@ -185,10 +231,11 @@ jobs:
 
     - name: Download artifacts
       uses: actions/download-artifact@v4
-      continue-on-error: true
+      continue-on-error: false
 
     - name: Generate SAST Report
       run: |
+        mkdir -p reports/SAST
         echo "==============================================="
         echo "🔐 SAST ANALYSIS REPORT"
         echo "==============================================="
@@ -227,7 +274,8 @@ jobs:
         echo "  - Duplication limit: 3%"
         echo ""
         echo "📁 Reports Available:"
-        ls -la eslint-reports/ 2>/dev/null || echo "  - ESLint reports"
+        ls -la
+        ls -la reports/SAST 2>/dev/null || echo "  - No SAST reports found"
         echo ""
         echo "🔗 Dashboard:"
         echo "  - SonarCloud: https://sonarcloud.io/projects"
@@ -240,6 +288,21 @@ jobs:
         echo "  5. Review ESLint warnings"
         echo ""
         echo "==============================================="
+
+        {
+          echo "SAST Workflow Summary"
+          echo "Generated at: $(date -u)"
+          echo ""
+          echo "Generated reports:"
+          ls -1 reports/SAST 2>/dev/null || echo "No reports generated"
+        } > reports/SAST/sast-summary.txt
+
+    - name: Upload consolidated SAST reports
+      uses: actions/upload-artifact@v4
+      with:
+        name: sast-consolidated-reports
+        path: reports/SAST
+      continue-on-error: false
 
     - name: Comment PR with SAST results
       if: github.event_name == 'pull_request'
