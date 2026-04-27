@@ -1,8 +1,8 @@
 {
 	"@programName": "ZAP",
 	"@version": "2.17.0",
-	"@generated": "Mon, 27 Apr 2026 15:59:13",
-	"created": "2026-04-27T15:59:13.382252620Z",
+	"@generated": "Mon, 27 Apr 2026 16:02:57",
+	"created": "2026-04-27T16:02:57.644242114Z",
 	"insights":[
 		{
 			"level": "Low",
@@ -72,21 +72,21 @@
 					"instances":[ 
 						{
 							"id": "15",
-							"uri": "http://localhost:3001/",
-							"nodeName": "http:\/\/localhost:3001\/",
+							"uri": "http://localhost:3001",
+							"nodeName": "http:\/\/localhost:3001",
 							"method": "GET",
 							"param": "",
-							"attack": "origin: http://ucfw65nq.com",
+							"attack": "origin: http://jxpD5oaM.com",
 							"evidence": "",
 							"otherinfo": ""
 						},
 						{
-							"id": "16",
-							"uri": "http://localhost:3001/robots.txt",
-							"nodeName": "http:\/\/localhost:3001\/robots.txt",
+							"id": "17",
+							"uri": "http://localhost:3001/",
+							"nodeName": "http:\/\/localhost:3001\/",
 							"method": "GET",
 							"param": "",
-							"attack": "origin: http://ucfw65nq.com",
+							"attack": "origin: http://jxpD5oaM.com",
 							"evidence": "",
 							"otherinfo": ""
 						},
@@ -96,7 +96,7 @@
 							"nodeName": "http:\/\/localhost:3001\/sitemap.xml",
 							"method": "GET",
 							"param": "",
-							"attack": "origin: http://ucfw65nq.com",
+							"attack": "origin: http://jxpD5oaM.com",
 							"evidence": "",
 							"otherinfo": ""
 						}
@@ -108,7 +108,7 @@
 					"reference": "<p>https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS</p><p>https://portswigger.net/web-security/cors</p>",
 					"cweid": "942",
 					"wascid": "14",
-					"sourceid": "198"
+					"sourceid": "200"
 				},
 				{
 					"pluginid": "10098",
@@ -141,7 +141,7 @@
 							"otherinfo": "The CORS misconfiguration on the web server permits cross-domain read requests from arbitrary third party domains, using unauthenticated APIs on this domain. Web browser implementations do not permit arbitrary third parties to read the response from authenticated APIs, however. This reduces the risk somewhat. This misconfiguration could be used by an attacker to access data that is available in an unauthenticated manner, but which uses some other form of security, such as IP address white-listing."
 						},
 						{
-							"id": "4",
+							"id": "6",
 							"uri": "http://localhost:3001/robots.txt",
 							"nodeName": "http:\/\/localhost:3001\/robots.txt",
 							"method": "GET",
@@ -151,7 +151,7 @@
 							"otherinfo": "The CORS misconfiguration on the web server permits cross-domain read requests from arbitrary third party domains, using unauthenticated APIs on this domain. Web browser implementations do not permit arbitrary third parties to read the response from authenticated APIs, however. This reduces the risk somewhat. This misconfiguration could be used by an attacker to access data that is available in an unauthenticated manner, but which uses some other form of security, such as IP address white-listing."
 						},
 						{
-							"id": "6",
+							"id": "3",
 							"uri": "http://localhost:3001/sitemap.xml",
 							"nodeName": "http:\/\/localhost:3001\/sitemap.xml",
 							"method": "GET",
@@ -181,7 +181,7 @@
 					"desc": "<p>The web/application server is leaking information via one or more \"X-Powered-By\" HTTP response headers. Access to such information may facilitate attackers identifying other frameworks/components your web application is reliant upon and the vulnerabilities such components may be subject to.</p>",
 					"instances":[ 
 						{
-							"id": "10",
+							"id": "13",
 							"uri": "http://localhost:3001",
 							"nodeName": "http:\/\/localhost:3001",
 							"method": "GET",
@@ -201,7 +201,7 @@
 							"otherinfo": ""
 						},
 						{
-							"id": "8",
+							"id": "10",
 							"uri": "http://localhost:3001/robots.txt",
 							"nodeName": "http:\/\/localhost:3001\/robots.txt",
 							"method": "GET",
@@ -211,7 +211,7 @@
 							"otherinfo": ""
 						},
 						{
-							"id": "9",
+							"id": "7",
 							"uri": "http://localhost:3001/sitemap.xml",
 							"nodeName": "http:\/\/localhost:3001\/sitemap.xml",
 							"method": "GET",
@@ -271,7 +271,7 @@
 							"otherinfo": "In the absence of an explicitly specified caching lifetime directive in the response, a liberal lifetime heuristic of 1 year was assumed. This is permitted by rfc7234."
 						},
 						{
-							"id": "13",
+							"id": "9",
 							"uri": "http://localhost:3001/sitemap.xml",
 							"nodeName": "http:\/\/localhost:3001\/sitemap.xml",
 							"method": "GET",
