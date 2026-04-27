@@ -3,18 +3,18 @@
   "Trivy": {
     "Version": "0.69.3"
   },
-  "ReportID": "019dcfcc-fff6-7bc1-afb5-f594e771abca",
-  "CreatedAt": "2026-04-27T16:36:51.830772596Z",
-  "ArtifactID": "sha256:99e9cc607080fb29228a4e3b629ad8fe59a5f373cb022d268bd60ad6a93bb781",
+  "ReportID": "019dcfec-d823-7807-b944-6fd2fa488153",
+  "CreatedAt": "2026-04-27T17:11:38.787528634Z",
+  "ArtifactID": "sha256:711b5189d9d9a358fcc3b3162634d2fbb8c02ad27372f7159fd7b9ebc66166c1",
   "ArtifactName": ".",
   "ArtifactType": "repository",
   "Metadata": {
     "RepoURL": "https://github.com/juliogarciabarrena/PAI4_Workflow_Project",
-    "Branch": "develop",
-    "Commit": "df4351f9bb69fedf426c18f72b5fbe97aa3c2f0a",
-    "CommitMsg": "Merge branch 'develop' of https://github.com/juliogarciabarrena/PAI4_Workflow_Project into develop",
-    "Author": "Ivanmbus \u003civamirbal@alum.us.es\u003e",
-    "Committer": "Ivanmbus \u003civamirbal@alum.us.es\u003e"
+    "Branch": "main",
+    "Commit": "c908e21d735bd353b610f54efcb1a629b8046ad5",
+    "CommitMsg": "Merge pull request #6 from juliogarciabarrena/develop\n\nMERGE REPORTS AND CORRECT WORKFLOWS",
+    "Author": "Ivan Miranda \u003c114419049+Ivanmbus@users.noreply.github.com\u003e",
+    "Committer": "GitHub \u003cnoreply@github.com\u003e"
   },
   "Results": [
     {
