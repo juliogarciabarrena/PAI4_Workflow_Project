@@ -38,7 +38,7 @@ jobs:
     #Permisos para generar reporte owasp zap    
     - name: Fix workspace permissions
       run: chmod -R 777 .
-    # 7. Ejecutar OWASP ZAP
+    # 8. Ejecutar OWASP ZAP frontend
     - name: Run OWASP ZAP full scan
       run: |
         docker run --network="host" \
@@ -47,10 +47,11 @@ jobs:
           zap-full-scan.py \
           -t http://localhost:3000 \
           -j \
-          -r zap-report.html \
-          -J zap.json \
+          -r reports/DAST/zap-report.html \
+          -J reports/DAST/zap.json \
           -I
 
+    # 9. Ejecutar OWASP ZAP backend
     - name: Run OWASP ZAP full scan on backend
       run: |
         docker run --network="host" \
@@ -59,18 +60,14 @@ jobs:
           zap-full-scan.py \
           -t http://localhost:3001 \
           -n /zap/wrk/zap.context \
-          -r zap-report-backend.html \
-          -J zap-backend.json \
+          -r reports/DAST/zap-report-backend.html \
+          -J reports/DAST/zap-backend.json \
           -z "-config spider.seedUrls=/zap/wrk/zap-urls.txt" \
           -I
 
-    # 8. Guardar reporte
+    # 10. Guardar reportes
     - name: Upload ZAP reports
       uses: actions/upload-artifact@v4
       with:
         name: zap-reports
-        path: |
-          zap-report.html
-          zap-report-backend.html
-          zap.json
-          zap-backend.json
+        path: reports/DAST/
