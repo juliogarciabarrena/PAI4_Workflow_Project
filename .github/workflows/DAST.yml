@@ -38,9 +38,11 @@ jobs:
         npm install &&
         npm start &
         sleep 15
-    # Permisos mínimos para escribir reportes sin alterar modos del repo
+    # Preparar carpeta y permisos para que el contenedor ZAP pueda escribir
     - name: Prepare DAST reports directory
-      run: mkdir -p reports/DAST
+      run: |
+        mkdir -p reports/DAST
+        chmod 777 reports/DAST
     # 8. Ejecutar OWASP ZAP frontend
     - name: Run OWASP ZAP full scan
       run: |
