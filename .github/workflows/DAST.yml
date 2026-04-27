@@ -42,12 +42,14 @@ jobs:
     - name: Prepare DAST reports directory
       run: |
         mkdir -p reports/DAST
-        chmod 777 reports/DAST
+        chmod -R a+rwX reports/DAST || true
+        rm -f reports/DAST/zap-report.html reports/DAST/zap.json reports/DAST/zap-report-backend.html reports/DAST/zap-backend.json
     # 8. Ejecutar OWASP ZAP frontend
     - name: Run OWASP ZAP full scan
       run: |
         docker run --network="host" \
-          -v $(pwd):/zap/wrk \
+          --user root \
+          -v $(pwd):/zap/wrk:rw \
           ghcr.io/zaproxy/zaproxy:stable \
           zap-full-scan.py \
           -t http://localhost:3000 \
@@ -60,7 +62,8 @@ jobs:
     - name: Run OWASP ZAP full scan on backend
       run: |
         docker run --network="host" \
-          -v $(pwd):/zap/wrk \
+          --user root \
+          -v $(pwd):/zap/wrk:rw \
           ghcr.io/zaproxy/zaproxy:stable \
           zap-full-scan.py \
           -t http://localhost:3001 \
