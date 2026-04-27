@@ -38,14 +38,18 @@ jobs:
         npm install &&
         npm start &
         sleep 15
-    #Permisos para generar reporte owasp zap    
-    - name: Fix workspace permissions
-      run: chmod -R 777 .
+    # Preparar carpeta y permisos para que el contenedor ZAP pueda escribir
+    - name: Prepare DAST reports directory
+      run: |
+        mkdir -p reports/DAST
+        chmod -R a+rwX reports/DAST || true
+        rm -f reports/DAST/zap-report.html reports/DAST/zap.json reports/DAST/zap-report-backend.html reports/DAST/zap-backend.json
     # 8. Ejecutar OWASP ZAP frontend
     - name: Run OWASP ZAP full scan
       run: |
         docker run --network="host" \
-          -v $(pwd):/zap/wrk \
+          --user root \
+          -v $(pwd):/zap/wrk:rw \
           ghcr.io/zaproxy/zaproxy:stable \
           zap-full-scan.py \
           -t http://localhost:3000 \
@@ -58,7 +62,8 @@ jobs:
     - name: Run OWASP ZAP full scan on backend
       run: |
         docker run --network="host" \
-          -v $(pwd):/zap/wrk \
+          --user root \
+          -v $(pwd):/zap/wrk:rw \
           ghcr.io/zaproxy/zaproxy:stable \
           zap-full-scan.py \
           -t http://localhost:3001 \
@@ -79,8 +84,15 @@ jobs:
       run: |
         git config --global user.name "github-actions"
         git config --global user.email "github-actions@github.com"
+        git config core.fileMode false
         git add reports/DAST/
-        git commit -m "ci: add ZAP DAST reports [skip ci]" || echo "No changes to commit"
-        git push
+        if git diff --cached --quiet; then
+          echo "No changes to commit"
+          exit 0
+        fi
+        git commit -m "ci: add ZAP DAST reports [skip ci]"
+        git fetch origin "$GITHUB_REF_NAME"
+        git rebase "origin/$GITHUB_REF_NAME"
+        git push origin "HEAD:$GITHUB_REF_NAME"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
