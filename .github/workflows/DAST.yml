@@ -2,9 +2,12 @@ name: Dast Pipeline
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "develop" ]
   pull_request:
     branches: [ "main" ]
+
+permissions:
+  contents: write
 
 jobs:
   dast:
@@ -35,24 +38,61 @@ jobs:
         npm install &&
         npm start &
         sleep 15
-    #Permisos para generar reporte owasp zap    
-    - name: Fix workspace permissions
-      run: chmod -R 777 .
-    # 7. Ejecutar OWASP ZAP
-    - name: Run OWASP ZAP baseline scan
+    # Preparar carpeta y permisos para que el contenedor ZAP pueda escribir
+    - name: Prepare DAST reports directory
+      run: |
+        mkdir -p reports/DAST
+        chmod -R a+rwX reports/DAST || true
+        rm -f reports/DAST/zap-report.html reports/DAST/zap.json reports/DAST/zap-report-backend.html reports/DAST/zap-backend.json
+    # 8. Ejecutar OWASP ZAP frontend
+    - name: Run OWASP ZAP full scan
       run: |
         docker run --network="host" \
-          -v $(pwd):/zap/wrk \
+          --user root \
+          -v $(pwd):/zap/wrk:rw \
           ghcr.io/zaproxy/zaproxy:stable \
-          zap-baseline.py \
+          zap-full-scan.py \
           -t http://localhost:3000 \
-          -r zap-report.html \
-          -J zap.json \
+          -j \
+          -r reports/DAST/zap-report.html \
+          -J reports/DAST/zap.json \
           -I
 
-    # 8. Guardar reporte
-    - name: Upload ZAP report
+    # 9. Ejecutar OWASP ZAP backend
+    - name: Run OWASP ZAP full scan on backend
+      run: |
+        docker run --network="host" \
+          --user root \
+          -v $(pwd):/zap/wrk:rw \
+          ghcr.io/zaproxy/zaproxy:stable \
+          zap-full-scan.py \
+          -t http://localhost:3001 \
+          -n /zap/wrk/zap.context \
+          -r reports/DAST/zap-report-backend.html \
+          -J reports/DAST/zap-backend.json \
+          -z "-config spider.seedUrls=/zap/wrk/zap-urls.txt" \
+          -I
+
+    # 10. Guardar reportes
+    - name: Upload ZAP reports
       uses: actions/upload-artifact@v4
       with:
-        name: zap-report
-        path: zap-report.html
+        name: zap-reports
+        path: reports/DAST/
+    # 11. Commit y push de los reportes al repositorio
+    - name: Commit ZAP reports to repository
+      run: |
+        git config --global user.name "github-actions"
+        git config --global user.email "github-actions@github.com"
+        git config core.fileMode false
+        git add reports/DAST/
+        if git diff --cached --quiet; then
+          echo "No changes to commit"
+          exit 0
+        fi
+        git commit -m "ci: add ZAP DAST reports [skip ci]"
+        git fetch origin "$GITHUB_REF_NAME"
+        git rebase "origin/$GITHUB_REF_NAME"
+        git push origin "HEAD:$GITHUB_REF_NAME"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

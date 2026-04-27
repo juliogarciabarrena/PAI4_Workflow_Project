@@ -1,0 +1,4 @@
+[Frontend] Pattern checks
+✓ No dangerouslySetInnerHTML found
+✓ No eval() found
+✓ No innerHTML found

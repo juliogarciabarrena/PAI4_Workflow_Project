@@ -1,0 +1,11 @@
+SAST Workflow Summary
+Generated at: Mon Apr 27 10:56:56 UTC 2026
+
+Generated reports:
+eslint-frontend-report.json
+npm-audit-backend.json
+npm-audit-frontend.json
+sast-summary.txt
+security-patterns-backend.txt
+security-patterns-frontend.txt
+semgrep-report.json
