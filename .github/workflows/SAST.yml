@@ -175,7 +175,7 @@ jobs:
       run: |
         npm ci
         echo "🔍 Running security audit on backend dependencies..."
-        npm audit --production --json > ../reports/SAST/npm-audit-backend.json 2>/dev/null || true
+        npx --yes npm@6 audit --production --json > ../reports/SAST/npm-audit-backend.json 2>/dev/null || true
         npm audit --production 2>&1 || true
       continue-on-error: true
 
@@ -196,7 +196,7 @@ jobs:
       run: |
         npm ci
         echo "🔍 Running security audit on frontend dependencies..."
-        npm audit --production --json > ../reports/SAST/npm-audit-frontend.json 2>/dev/null || true
+        npx --yes npm@6 audit --production --json > ../reports/SAST/npm-audit-frontend.json 2>/dev/null || true
         npm audit --production 2>&1 || true
       continue-on-error: false
 
