@@ -3,18 +3,18 @@
   "Trivy": {
     "Version": "0.69.3"
   },
-  "ReportID": "019dcfec-d823-7807-b944-6fd2fa488153",
-  "CreatedAt": "2026-04-27T17:11:38.787528634Z",
-  "ArtifactID": "sha256:711b5189d9d9a358fcc3b3162634d2fbb8c02ad27372f7159fd7b9ebc66166c1",
+  "ReportID": "019dcaf2-e9d2-7186-b958-9b4a8d995f72",
+  "CreatedAt": "2026-04-26T18:00:10.450101726Z",
+  "ArtifactID": "sha256:156ba2ae9f240d7ff8d8b933d7fc7324468afdab74007ccba2b71d09260480ef",
   "ArtifactName": ".",
   "ArtifactType": "repository",
   "Metadata": {
     "RepoURL": "https://github.com/juliogarciabarrena/PAI4_Workflow_Project",
-    "Branch": "main",
-    "Commit": "c908e21d735bd353b610f54efcb1a629b8046ad5",
-    "CommitMsg": "Merge pull request #6 from juliogarciabarrena/develop\n\nMERGE REPORTS AND CORRECT WORKFLOWS",
-    "Author": "Ivan Miranda \u003c114419049+Ivanmbus@users.noreply.github.com\u003e",
-    "Committer": "GitHub \u003cnoreply@github.com\u003e"
+    "Branch": "infrastructure-as-code",
+    "Commit": "0dd07d915c48e48261815892fc6315a09dceed42",
+    "CommitMsg": "feat: restructure Trivy scan steps to output results in reports directory and add JSON report handling",
+    "Author": "Estrella Ángel \u003cestrella.angel.postigo@gmail.com\u003e",
+    "Committer": "Estrella Ángel \u003cestrella.angel.postigo@gmail.com\u003e"
   },
   "Results": [
     {

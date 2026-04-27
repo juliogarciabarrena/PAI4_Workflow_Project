@@ -7,14 +7,14 @@ on:
     branches: [ main, develop ]
   workflow_dispatch:
 
-permissions:
-  contents: write
-  security-events: write
-
 jobs:
   trivy-iac:
     name: Trivy IaC Scan
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      security-events: write
 
     steps:
       - name: Checkout repository
@@ -67,24 +67,3 @@ jobs:
         with:
           name: trivy-iac-json-results
           path: reports/trivy/trivy-iac.json
-
-      - name: Commit Trivy reports to repository
-        if: github.event_name != 'pull_request'
-        run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "github-actions@github.com"
-          git config core.fileMode false
-
-          git add reports/trivy/
-
-          if git diff --cached --quiet; then
-            echo "No changes to commit"
-            exit 0
-          fi
-
-          git commit -m "ci: add Trivy IaC reports [skip ci]"
-          git fetch origin "$GITHUB_REF_NAME"
-          git rebase "origin/$GITHUB_REF_NAME"
-          git push origin "HEAD:$GITHUB_REF_NAME"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
