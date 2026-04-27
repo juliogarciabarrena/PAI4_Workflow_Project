@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<OWASPZAPReport programName="ZAP" version="2.17.0" generated="Mon, 27 Apr 2026 16:38:45" created="2026-04-27T16:38:45.390162361Z">
+<OWASPZAPReport programName="ZAP" version="2.17.0" generated="Mon, 27 Apr 2026 17:13:14" created="2026-04-27T17:13:14.542575182Z">
 	
 		<site name="http://localhost:3001" host="localhost" port="3001" ssl="false">
 			<alerts>
@@ -21,7 +21,7 @@
 									<nodeName>http://localhost:3001</nodeName>
 									<method>GET</method>
 									<param></param>
-									<attack>origin: http://Aek8ffzd.com</attack>
+									<attack>origin: http://B8R1ykjw.com</attack>
 									<evidence></evidence>
 									<otherinfo></otherinfo>
 								</instance>
@@ -32,7 +32,7 @@
 									<nodeName>http://localhost:3001/</nodeName>
 									<method>GET</method>
 									<param></param>
-									<attack>origin: http://Aek8ffzd.com</attack>
+									<attack>origin: http://B8R1ykjw.com</attack>
 									<evidence></evidence>
 									<otherinfo></otherinfo>
 								</instance>
@@ -43,7 +43,7 @@
 									<nodeName>http://localhost:3001/robots.txt</nodeName>
 									<method>GET</method>
 									<param></param>
-									<attack>origin: http://Aek8ffzd.com</attack>
+									<attack>origin: http://B8R1ykjw.com</attack>
 									<evidence></evidence>
 									<otherinfo></otherinfo>
 								</instance>
@@ -56,7 +56,7 @@
 						<reference>&lt;p&gt;https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS&lt;/p&gt;&lt;p&gt;https://portswigger.net/web-security/cors&lt;/p&gt;</reference>
 						<cweid>942</cweid>
 						<wascid>14</wascid>
-						<sourceid>198</sourceid>
+						<sourceid>200</sourceid>
 					</alertitem>
 				
 				
@@ -123,7 +123,7 @@
 						<reference>&lt;p&gt;https://vulncat.fortify.com/en/detail?category=HTML5&amp;subcategory=Overly%20Permissive%20CORS%20Policy&lt;/p&gt;</reference>
 						<cweid>264</cweid>
 						<wascid>14</wascid>
-						<sourceid>8</sourceid>
+						<sourceid>7</sourceid>
 					</alertitem>
 				
 				
@@ -190,7 +190,7 @@
 						<reference>&lt;p&gt;https://owasp.org/www-project-web-security-testing-guide/v42/4-Web_Application_Security_Testing/01-Information_Gathering/08-Fingerprint_Web_Application_Framework&lt;/p&gt;&lt;p&gt;https://www.troyhunt.com/shhh-dont-let-your-response-headers/&lt;/p&gt;</reference>
 						<cweid>497</cweid>
 						<wascid>13</wascid>
-						<sourceid>8</sourceid>
+						<sourceid>7</sourceid>
 					</alertitem>
 				
 				
@@ -257,7 +257,7 @@
 						<reference>&lt;p&gt;https://datatracker.ietf.org/doc/html/rfc7234&lt;/p&gt;&lt;p&gt;https://datatracker.ietf.org/doc/html/rfc7231&lt;/p&gt;&lt;p&gt;https://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html&lt;/p&gt;</reference>
 						<cweid>524</cweid>
 						<wascid>13</wascid>
-						<sourceid>8</sourceid>
+						<sourceid>7</sourceid>
 					</alertitem>
 				
 			</alerts>
