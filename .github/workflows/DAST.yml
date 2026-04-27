@@ -38,9 +38,9 @@ jobs:
         npm install &&
         npm start &
         sleep 15
-    #Permisos para generar reporte owasp zap    
-    - name: Fix workspace permissions
-      run: chmod -R 777 .
+    # Permisos mínimos para escribir reportes sin alterar modos del repo
+    - name: Prepare DAST reports directory
+      run: mkdir -p reports/DAST
     # 8. Ejecutar OWASP ZAP frontend
     - name: Run OWASP ZAP full scan
       run: |
@@ -79,8 +79,10 @@ jobs:
       run: |
         git config --global user.name "github-actions"
         git config --global user.email "github-actions@github.com"
+        git config core.fileMode false
+        git pull --rebase origin "$GITHUB_REF_NAME"
         git add reports/DAST/
         git commit -m "ci: add ZAP DAST reports [skip ci]" || echo "No changes to commit"
-        git push
+        git push origin "HEAD:$GITHUB_REF_NAME" || (git pull --rebase origin "$GITHUB_REF_NAME" && git push origin "HEAD:$GITHUB_REF_NAME")
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
