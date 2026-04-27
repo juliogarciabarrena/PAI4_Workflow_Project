@@ -2,9 +2,9 @@ name: IaC Security Scan
 
 on:
   push:
-    branches: [ infrastructure-as-code ]
+    branches: [ main, develop ]
   pull_request:
-    branches: [ infrastructure-as-code ]
+    branches: [ main, develop]
   workflow_dispatch:
 
 jobs:
@@ -20,24 +20,50 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Run Trivy in IaC mode
+      - name: Crear carpeta de reportes
+        run: mkdir -p reports
+
+      - name: Run Trivy in IaC mode - SARIF
         uses: aquasecurity/trivy-action@v0.35.0
         with:
           scan-type: config
           scan-ref: .
           hide-progress: true
           format: sarif
-          output: trivy-results.sarif
+          output: reports/trivy-results.sarif
           exit-code: 0
           severity: CRITICAL,HIGH
 
       - name: Upload Trivy results to GitHub Security
         uses: github/codeql-action/upload-sarif@v4
         with:
-          sarif_file: trivy-results.sarif
+          sarif_file: reports/trivy-results.sarif
 
       - name: Upload SARIF file as artifact
         uses: actions/upload-artifact@v4
         with:
           name: trivy-iac-sarif-results
-          path: trivy-results.sarif
+          path: reports/trivy-results.sarif
+
+      - name: Run Trivy in IaC mode - JSON
+        uses: aquasecurity/trivy-action@v0.35.0
+        with:
+          scan-type: config
+          scan-ref: .
+          hide-progress: true
+          format: json
+          output: reports/trivy-iac.json
+          exit-code: 0
+          severity: UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL
+
+      - name: Comprobar reporte JSON
+        run: |
+          ls -la reports
+          test -s reports/trivy-iac.json
+          head -c 500 reports/trivy-iac.json
+
+      - name: Upload JSON file as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: trivy-iac-json-results
+          path: reports/trivy-iac.json
