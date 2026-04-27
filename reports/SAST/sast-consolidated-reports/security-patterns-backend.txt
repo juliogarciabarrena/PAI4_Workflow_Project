@@ -1,0 +1,3 @@
+[Backend] Pattern checks
+✓ No eval() found
+✓ No dynamic requires found
