@@ -51,7 +51,7 @@ jobs:
           -t http://localhost:3000 \
           -j \
           -r reports/DAST/zap-report.html \
-          -J reports/DAST/zap.json \
+          -x reports/DAST/zap-frontend.xml \
           -I
 
     # 9. Ejecutar OWASP ZAP backend
@@ -64,7 +64,7 @@ jobs:
           -t http://localhost:3001 \
           -n /zap/wrk/zap.context \
           -r reports/DAST/zap-report-backend.html \
-          -J reports/DAST/zap-backend.json \
+          -x reports/DAST/zap-backend.xml \
           -z "-config spider.seedUrls=/zap/wrk/zap-urls.txt" \
           -I
 
