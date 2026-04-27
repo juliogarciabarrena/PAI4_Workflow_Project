@@ -3,18 +3,18 @@
   "Trivy": {
     "Version": "0.69.3"
   },
-  "ReportID": "019dcaf2-e9d2-7186-b958-9b4a8d995f72",
-  "CreatedAt": "2026-04-26T18:00:10.450101726Z",
-  "ArtifactID": "sha256:156ba2ae9f240d7ff8d8b933d7fc7324468afdab74007ccba2b71d09260480ef",
+  "ReportID": "019dcfcc-fff6-7bc1-afb5-f594e771abca",
+  "CreatedAt": "2026-04-27T16:36:51.830772596Z",
+  "ArtifactID": "sha256:99e9cc607080fb29228a4e3b629ad8fe59a5f373cb022d268bd60ad6a93bb781",
   "ArtifactName": ".",
   "ArtifactType": "repository",
   "Metadata": {
     "RepoURL": "https://github.com/juliogarciabarrena/PAI4_Workflow_Project",
-    "Branch": "infrastructure-as-code",
-    "Commit": "0dd07d915c48e48261815892fc6315a09dceed42",
-    "CommitMsg": "feat: restructure Trivy scan steps to output results in reports directory and add JSON report handling",
-    "Author": "Estrella Ángel \u003cestrella.angel.postigo@gmail.com\u003e",
-    "Committer": "Estrella Ángel \u003cestrella.angel.postigo@gmail.com\u003e"
+    "Branch": "develop",
+    "Commit": "df4351f9bb69fedf426c18f72b5fbe97aa3c2f0a",
+    "CommitMsg": "Merge branch 'develop' of https://github.com/juliogarciabarrena/PAI4_Workflow_Project into develop",
+    "Author": "Ivanmbus \u003civamirbal@alum.us.es\u003e",
+    "Committer": "Ivanmbus \u003civamirbal@alum.us.es\u003e"
   },
   "Results": [
     {

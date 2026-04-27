@@ -4,24 +4,24 @@ on:
   push:
     branches: [ main, develop ]
   pull_request:
-    branches: [ main, develop]
+    branches: [ main, develop ]
   workflow_dispatch:
+
+permissions:
+  contents: write
+  security-events: write
 
 jobs:
   trivy-iac:
     name: Trivy IaC Scan
     runs-on: ubuntu-latest
 
-    permissions:
-      contents: read
-      security-events: write
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Crear carpeta de reportes
-        run: mkdir -p reports
+        run: mkdir -p reports/trivy
 
       - name: Run Trivy in IaC mode - SARIF
         uses: aquasecurity/trivy-action@v0.35.0
@@ -30,20 +30,20 @@ jobs:
           scan-ref: .
           hide-progress: true
           format: sarif
-          output: reports/trivy-results.sarif
+          output: reports/trivy/trivy-results.sarif
           exit-code: 0
           severity: CRITICAL,HIGH
 
       - name: Upload Trivy results to GitHub Security
         uses: github/codeql-action/upload-sarif@v4
         with:
-          sarif_file: reports/trivy-results.sarif
+          sarif_file: reports/trivy/trivy-results.sarif
 
       - name: Upload SARIF file as artifact
         uses: actions/upload-artifact@v4
         with:
           name: trivy-iac-sarif-results
-          path: reports/trivy-results.sarif
+          path: reports/trivy/trivy-results.sarif
 
       - name: Run Trivy in IaC mode - JSON
         uses: aquasecurity/trivy-action@v0.35.0
@@ -52,18 +52,39 @@ jobs:
           scan-ref: .
           hide-progress: true
           format: json
-          output: reports/trivy-iac.json
+          output: reports/trivy/trivy-iac.json
           exit-code: 0
           severity: UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL
 
       - name: Comprobar reporte JSON
         run: |
-          ls -la reports
-          test -s reports/trivy-iac.json
-          head -c 500 reports/trivy-iac.json
+          ls -la reports/trivy
+          test -s reports/trivy/trivy-iac.json
+          head -c 500 reports/trivy/trivy-iac.json
 
       - name: Upload JSON file as artifact
         uses: actions/upload-artifact@v4
         with:
           name: trivy-iac-json-results
-          path: reports/trivy-iac.json
+          path: reports/trivy/trivy-iac.json
+
+      - name: Commit Trivy reports to repository
+        if: github.event_name != 'pull_request'
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git config core.fileMode false
+
+          git add reports/trivy/
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+
+          git commit -m "ci: add Trivy IaC reports [skip ci]"
+          git fetch origin "$GITHUB_REF_NAME"
+          git rebase "origin/$GITHUB_REF_NAME"
+          git push origin "HEAD:$GITHUB_REF_NAME"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
