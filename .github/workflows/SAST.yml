@@ -8,6 +8,9 @@ on:
   schedule:
     - cron: '0 3 * * *'
 
+permissions:
+  contents: write
+
 jobs:
   # ============================================================================
   # ESLint - Análisis estático de JavaScript
@@ -336,3 +339,27 @@ jobs:
             body: comment
           });
       continue-on-error: true
+
+  persist-sast-reports:
+    name: Persist SAST Reports to Repository
+    runs-on: ubuntu-latest
+    needs: [sast-summary]
+    if: github.event_name != 'pull_request'
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Download consolidated SAST reports
+      uses: actions/download-artifact@v4
+      with:
+        name: sast-consolidated-reports
+        path: reports/SAST
+
+    - name: Commit SAST reports to repository
+      run: |
+        git config --global user.name "github-actions"
+        git config --global user.email "github-actions@github.com"
+        git add reports/SAST/
+        git commit -m "ci: add SAST reports [skip ci]" || echo "No changes to commit"
+        git push
