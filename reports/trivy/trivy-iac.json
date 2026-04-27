@@ -3,18 +3,18 @@
   "Trivy": {
     "Version": "0.69.3"
   },
-  "ReportID": "019dcfcc-2f8f-70a2-a861-4e73f837f535",
-  "CreatedAt": "2026-04-27T16:35:58.479043588Z",
-  "ArtifactID": "sha256:bdd3d3a553b2aba3c50b61082c35cf9b029142eb918ca18dd581b4e1324f6e08",
+  "ReportID": "019dcfcc-fff6-7bc1-afb5-f594e771abca",
+  "CreatedAt": "2026-04-27T16:36:51.830772596Z",
+  "ArtifactID": "sha256:99e9cc607080fb29228a4e3b629ad8fe59a5f373cb022d268bd60ad6a93bb781",
   "ArtifactName": ".",
   "ArtifactType": "repository",
   "Metadata": {
     "RepoURL": "https://github.com/juliogarciabarrena/PAI4_Workflow_Project",
     "Branch": "develop",
-    "Commit": "a477505a087adbc18bc6cda520643c7a54952a42",
-    "CommitMsg": "fix: update Trivy IaC scan workflow to improve report handling and permissions",
-    "Author": "Estrella Ángel \u003cestrella.angel.postigo@gmail.com\u003e",
-    "Committer": "Estrella Ángel \u003cestrella.angel.postigo@gmail.com\u003e"
+    "Commit": "df4351f9bb69fedf426c18f72b5fbe97aa3c2f0a",
+    "CommitMsg": "Merge branch 'develop' of https://github.com/juliogarciabarrena/PAI4_Workflow_Project into develop",
+    "Author": "Ivanmbus \u003civamirbal@alum.us.es\u003e",
+    "Committer": "Ivanmbus \u003civamirbal@alum.us.es\u003e"
   },
   "Results": [
     {
