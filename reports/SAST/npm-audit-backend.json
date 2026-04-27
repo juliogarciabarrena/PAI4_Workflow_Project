@@ -1,22 +1,6 @@
 {
-  "auditReportVersion": 2,
-  "vulnerabilities": {},
-  "metadata": {
-    "vulnerabilities": {
-      "info": 0,
-      "low": 0,
-      "moderate": 0,
-      "high": 0,
-      "critical": 0,
-      "total": 0
-    },
-    "dependencies": {
-      "prod": 72,
-      "dev": 307,
-      "optional": 1,
-      "peer": 0,
-      "peerOptional": 0,
-      "total": 378
-    }
+  "error": {
+    "summary": "Cannot read properties of undefined (reading 'express')",
+    "detail": ""
   }
 }
