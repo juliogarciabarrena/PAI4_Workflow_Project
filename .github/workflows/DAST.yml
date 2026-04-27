@@ -85,9 +85,14 @@ jobs:
         git config --global user.name "github-actions"
         git config --global user.email "github-actions@github.com"
         git config core.fileMode false
-        git pull --rebase origin "$GITHUB_REF_NAME"
         git add reports/DAST/
-        git commit -m "ci: add ZAP DAST reports [skip ci]" || echo "No changes to commit"
-        git push origin "HEAD:$GITHUB_REF_NAME" || (git pull --rebase origin "$GITHUB_REF_NAME" && git push origin "HEAD:$GITHUB_REF_NAME")
+        if git diff --cached --quiet; then
+          echo "No changes to commit"
+          exit 0
+        fi
+        git commit -m "ci: add ZAP DAST reports [skip ci]"
+        git fetch origin "$GITHUB_REF_NAME"
+        git rebase "origin/$GITHUB_REF_NAME"
+        git push origin "HEAD:$GITHUB_REF_NAME"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
