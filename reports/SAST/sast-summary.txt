@@ -1,5 +1,5 @@
 SAST Workflow Summary
-Generated at: Mon Apr 27 16:37:00 UTC 2026
+Generated at: Mon Apr 27 18:26:49 UTC 2026
 
 Generated reports:
 eslint-frontend-report.json
