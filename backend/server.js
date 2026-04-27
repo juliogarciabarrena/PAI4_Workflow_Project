@@ -338,6 +338,36 @@ app.delete('/api/planets/:id', (req, res) => {
   }
 });
 
+// Get planet by name - VULNERABLE A XSS REFLEJADO
+app.get('/api/planets/name/:name', (req, res) => {
+  try {
+    const name = req.params.name; // ⚠️ Sin sanitizar
+    const planet = planets.find(p => p.name.toLowerCase() === name.toLowerCase());
+    
+    if (!planet) {
+      // ⚠️ VULNERABILIDAD: El input del usuario se refleja directamente en la respuesta HTML
+      return res.status(404).send(`
+        <html>
+          <body>
+            <h1>Planet not found: ${name}</h1>
+            <p>No planet with the name "${name}" exists in our database.</p>
+          </body>
+        </html>
+      `);
+    }
+    
+    res.status(200).json({
+      success: true,
+      data: planet
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Internal server error'
+    });
+  }
+});
+
 // 404 handler
 app.use((req, res) => {
   res.status(404).json({
