@@ -231,6 +231,9 @@ jobs:
 
     - name: Download artifacts
       uses: actions/download-artifact@v4
+      with:
+        path: reports/SAST
+        merge-multiple: true
       continue-on-error: false
 
     - name: Generate SAST Report
@@ -274,7 +277,6 @@ jobs:
         echo "  - Duplication limit: 3%"
         echo ""
         echo "📁 Reports Available:"
-        ls -la
         ls -la reports/SAST 2>/dev/null || echo "  - No SAST reports found"
         echo ""
         echo "🔗 Dashboard:"
