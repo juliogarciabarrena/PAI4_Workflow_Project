@@ -3,16 +3,16 @@
   "Trivy": {
     "Version": "0.69.3"
   },
-  "ReportID": "019dcfcc-fff6-7bc1-afb5-f594e771abca",
-  "CreatedAt": "2026-04-27T16:36:51.830772596Z",
-  "ArtifactID": "sha256:99e9cc607080fb29228a4e3b629ad8fe59a5f373cb022d268bd60ad6a93bb781",
+  "ReportID": "019dd001-15bb-76fb-967a-d24bad83d66a",
+  "CreatedAt": "2026-04-27T17:33:45.275459864Z",
+  "ArtifactID": "sha256:2b605d148e7a55deec1d4a035a361ae4af0630c92ae82185c70b19c3259c330d",
   "ArtifactName": ".",
   "ArtifactType": "repository",
   "Metadata": {
     "RepoURL": "https://github.com/juliogarciabarrena/PAI4_Workflow_Project",
     "Branch": "develop",
-    "Commit": "df4351f9bb69fedf426c18f72b5fbe97aa3c2f0a",
-    "CommitMsg": "Merge branch 'develop' of https://github.com/juliogarciabarrena/PAI4_Workflow_Project into develop",
+    "Commit": "7d982769b9c7772e43b1a8d617bb9ce788b9ffca",
+    "CommitMsg": "fix: dont push reports into repository",
     "Author": "Ivanmbus \u003civamirbal@alum.us.es\u003e",
     "Committer": "Ivanmbus \u003civamirbal@alum.us.es\u003e"
   },
