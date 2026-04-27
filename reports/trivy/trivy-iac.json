@@ -3,16 +3,16 @@
   "Trivy": {
     "Version": "0.69.3"
   },
-  "ReportID": "019dcaf2-e9d2-7186-b958-9b4a8d995f72",
-  "CreatedAt": "2026-04-26T18:00:10.450101726Z",
-  "ArtifactID": "sha256:156ba2ae9f240d7ff8d8b933d7fc7324468afdab74007ccba2b71d09260480ef",
+  "ReportID": "019dcfcc-2f8f-70a2-a861-4e73f837f535",
+  "CreatedAt": "2026-04-27T16:35:58.479043588Z",
+  "ArtifactID": "sha256:bdd3d3a553b2aba3c50b61082c35cf9b029142eb918ca18dd581b4e1324f6e08",
   "ArtifactName": ".",
   "ArtifactType": "repository",
   "Metadata": {
     "RepoURL": "https://github.com/juliogarciabarrena/PAI4_Workflow_Project",
-    "Branch": "infrastructure-as-code",
-    "Commit": "0dd07d915c48e48261815892fc6315a09dceed42",
-    "CommitMsg": "feat: restructure Trivy scan steps to output results in reports directory and add JSON report handling",
+    "Branch": "develop",
+    "Commit": "a477505a087adbc18bc6cda520643c7a54952a42",
+    "CommitMsg": "fix: update Trivy IaC scan workflow to improve report handling and permissions",
     "Author": "Estrella Ángel \u003cestrella.angel.postigo@gmail.com\u003e",
     "Committer": "Estrella Ángel \u003cestrella.angel.postigo@gmail.com\u003e"
   },
