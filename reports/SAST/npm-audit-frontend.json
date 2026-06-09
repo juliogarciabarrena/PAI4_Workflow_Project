@@ -108,22 +108,6 @@
           "range": ">=1.0.0 <1.15.1"
         },
         {
-          "source": 1117585,
-          "name": "axios",
-          "dependency": "axios",
-          "title": "Axios: unbounded recursion in toFormData causes DoS via deeply nested request data",
-          "url": "https://github.com/advisories/GHSA-62hf-57xw-28j9",
-          "severity": "moderate",
-          "cwe": [
-            "CWE-674"
-          ],
-          "cvss": {
-            "score": 7.5,
-            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
-          },
-          "range": ">=1.0.0 <1.15.1"
-        },
-        {
           "source": 1117587,
           "name": "axios",
           "dependency": "axios",
@@ -351,6 +335,22 @@
             "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"
           },
           "range": ">=1.0.0 <1.16.0"
+        },
+        {
+          "source": 1120125,
+          "name": "axios",
+          "dependency": "axios",
+          "title": "Axios: unbounded recursion in toFormData causes DoS via deeply nested request data",
+          "url": "https://github.com/advisories/GHSA-62hf-57xw-28j9",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-674"
+          ],
+          "cvss": {
+            "score": 7.5,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+          },
+          "range": ">=1.0.0 <1.15.1"
         }
       ],
       "effects": [],
