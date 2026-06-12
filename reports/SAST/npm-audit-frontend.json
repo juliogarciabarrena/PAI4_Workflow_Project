@@ -238,57 +238,6 @@
           "range": ">=1.0.0 <1.16.0"
         },
         {
-          "source": 1119674,
-          "name": "axios",
-          "dependency": "axios",
-          "title": "axios Vulnerable to Credential Theft and Response Hijacking via Prototype Pollution Gadget in Config Merge",
-          "url": "https://github.com/advisories/GHSA-3g43-6gmg-66jw",
-          "severity": "high",
-          "cwe": [
-            "CWE-94",
-            "CWE-1321"
-          ],
-          "cvss": {
-            "score": 7,
-            "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:L/A:L"
-          },
-          "range": ">=1.0.0 <1.15.2"
-        },
-        {
-          "source": 1119675,
-          "name": "axios",
-          "dependency": "axios",
-          "title": "axios Vulnerable to Full Man-in-the-Middle via Prototype Pollution Gadget in `config.proxy`",
-          "url": "https://github.com/advisories/GHSA-35jp-ww65-95wh",
-          "severity": "high",
-          "cwe": [
-            "CWE-441",
-            "CWE-1321"
-          ],
-          "cvss": {
-            "score": 8.7,
-            "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:C/C:H/I:H/A:N"
-          },
-          "range": ">=1.0.0 <1.16.0"
-        },
-        {
-          "source": 1120073,
-          "name": "axios",
-          "dependency": "axios",
-          "title": "Axios: Regular Expression Denial of Service (ReDoS) via Cookie Name Injection",
-          "url": "https://github.com/advisories/GHSA-hfxv-24rg-xrqf",
-          "severity": "high",
-          "cwe": [
-            "CWE-400",
-            "CWE-1333"
-          ],
-          "cvss": {
-            "score": 7.5,
-            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
-          },
-          "range": ">=1.0.0 <1.16.0"
-        },
-        {
           "source": 1120074,
           "name": "axios",
           "dependency": "axios",
@@ -351,6 +300,57 @@
             "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
           },
           "range": ">=1.0.0 <1.15.1"
+        },
+        {
+          "source": 1120547,
+          "name": "axios",
+          "dependency": "axios",
+          "title": "Axios: Regular Expression Denial of Service (ReDoS) via Cookie Name Injection",
+          "url": "https://github.com/advisories/GHSA-hfxv-24rg-xrqf",
+          "severity": "high",
+          "cwe": [
+            "CWE-400",
+            "CWE-1333"
+          ],
+          "cvss": {
+            "score": 7.5,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+          },
+          "range": ">=1.0.0 <1.16.0"
+        },
+        {
+          "source": 1120549,
+          "name": "axios",
+          "dependency": "axios",
+          "title": "axios Vulnerable to Credential Theft and Response Hijacking via Prototype Pollution Gadget in Config Merge",
+          "url": "https://github.com/advisories/GHSA-3g43-6gmg-66jw",
+          "severity": "high",
+          "cwe": [
+            "CWE-94",
+            "CWE-1321"
+          ],
+          "cvss": {
+            "score": 7,
+            "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:L/A:L"
+          },
+          "range": ">=1.0.0 <1.15.2"
+        },
+        {
+          "source": 1120550,
+          "name": "axios",
+          "dependency": "axios",
+          "title": "axios Vulnerable to Full Man-in-the-Middle via Prototype Pollution Gadget in `config.proxy`",
+          "url": "https://github.com/advisories/GHSA-35jp-ww65-95wh",
+          "severity": "high",
+          "cwe": [
+            "CWE-441",
+            "CWE-1321"
+          ],
+          "cvss": {
+            "score": 8.7,
+            "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:C/C:H/I:H/A:N"
+          },
+          "range": ">=1.0.0 <1.16.0"
         }
       ],
       "effects": [],
