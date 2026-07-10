@@ -337,7 +337,7 @@
           "range": ">=1.0.0 <1.16.0"
         },
         {
-          "source": 1122768,
+          "source": 1122844,
           "name": "axios",
           "dependency": "axios",
           "title": "axios's shouldBypassProxy does not recognize IPv4-mapped IPv6 addresses, allowing NO_PROXY bypass (incomplete fix for CVE-2025-62718)",
