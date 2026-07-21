@@ -6,10 +6,26 @@
       "severity": "moderate",
       "isDirect": false,
       "via": [
+        {
+          "source": 1123977,
+          "name": "body-parser",
+          "dependency": "body-parser",
+          "title": "body-parser vulnerable to denial of service when invalid limit value silently disables size enforcement",
+          "url": "https://github.com/advisories/GHSA-v422-hmwv-36x6",
+          "severity": "low",
+          "cwe": [
+            "CWE-770"
+          ],
+          "cvss": {
+            "score": 3.7,
+            "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:L"
+          },
+          "range": "<1.20.6"
+        },
         "qs"
       ],
       "effects": [],
-      "range": "1.20.3 - 1.20.4 || 2.0.0-beta.1 - 2.0.2",
+      "range": "<=1.20.5 || 2.0.0-beta.1 - 2.0.2",
       "nodes": [
         "node_modules/body-parser"
       ],
