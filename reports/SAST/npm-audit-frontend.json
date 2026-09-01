@@ -371,23 +371,6 @@
           "range": ">=1.0.0 <1.18.0"
         },
         {
-          "source": 1123885,
-          "name": "axios",
-          "dependency": "axios",
-          "title": "Axios: Deep formToJSON Key Recursion Can Cause Denial of Service",
-          "url": "https://github.com/advisories/GHSA-pmv8-rq9r-6j72",
-          "severity": "moderate",
-          "cwe": [
-            "CWE-400",
-            "CWE-770"
-          ],
-          "cvss": {
-            "score": 0,
-            "vectorString": null
-          },
-          "range": ">=1.0.0 <1.18.0"
-        },
-        {
           "source": 1123957,
           "name": "axios",
           "dependency": "axios",
@@ -402,22 +385,6 @@
             "vectorString": null
           },
           "range": ">=1.7.0 <1.18.0"
-        },
-        {
-          "source": 1123959,
-          "name": "axios",
-          "dependency": "axios",
-          "title": "Axios: Prototype pollution gadgets can alter axios request construction",
-          "url": "https://github.com/advisories/GHSA-mmx7-hfxf-jppx",
-          "severity": "moderate",
-          "cwe": [
-            "CWE-1321"
-          ],
-          "cvss": {
-            "score": 0,
-            "vectorString": null
-          },
-          "range": ">=1.0.0 <1.18.0"
         },
         {
           "source": 1123961,
@@ -467,6 +434,39 @@
             "vectorString": null
           },
           "range": ">=1.13.0 <1.18.0"
+        },
+        {
+          "source": 1147949,
+          "name": "axios",
+          "dependency": "axios",
+          "title": "Axios: Prototype pollution gadgets can alter axios request construction",
+          "url": "https://github.com/advisories/GHSA-mmx7-hfxf-jppx",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-1321"
+          ],
+          "cvss": {
+            "score": 0,
+            "vectorString": null
+          },
+          "range": ">=1.0.0 <1.18.0"
+        },
+        {
+          "source": 1147950,
+          "name": "axios",
+          "dependency": "axios",
+          "title": "Axios: Deep formToJSON Key Recursion Can Cause Denial of Service",
+          "url": "https://github.com/advisories/GHSA-pmv8-rq9r-6j72",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-400",
+            "CWE-770"
+          ],
+          "cvss": {
+            "score": 0,
+            "vectorString": null
+          },
+          "range": ">=1.0.0 <1.18.0"
         }
       ],
       "effects": [],
