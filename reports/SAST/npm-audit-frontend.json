@@ -354,88 +354,6 @@
           "range": ">=1.15.0 <1.16.0"
         },
         {
-          "source": 1123882,
-          "name": "axios",
-          "dependency": "axios",
-          "title": "Axios: Excessive recursion in formDataToJSON can cause denial of service",
-          "url": "https://github.com/advisories/GHSA-42h9-826w-cgv3",
-          "severity": "moderate",
-          "cwe": [
-            "CWE-400",
-            "CWE-674"
-          ],
-          "cvss": {
-            "score": 0,
-            "vectorString": null
-          },
-          "range": ">=1.0.0 <1.18.0"
-        },
-        {
-          "source": 1123957,
-          "name": "axios",
-          "dependency": "axios",
-          "title": "Axios: Fetch adapter `ReadableStream` uploads bypass `maxBodyLength`",
-          "url": "https://github.com/advisories/GHSA-jqh4-m9w3-8hp9",
-          "severity": "moderate",
-          "cwe": [
-            "CWE-770"
-          ],
-          "cvss": {
-            "score": 0,
-            "vectorString": null
-          },
-          "range": ">=1.7.0 <1.18.0"
-        },
-        {
-          "source": 1123961,
-          "name": "axios",
-          "dependency": "axios",
-          "title": "Axios: NO_PROXY bypass for 0.0.0.0 local addresses in axios",
-          "url": "https://github.com/advisories/GHSA-f4gw-2p7v-4548",
-          "severity": "moderate",
-          "cwe": [
-            "CWE-183",
-            "CWE-918"
-          ],
-          "cvss": {
-            "score": 0,
-            "vectorString": null
-          },
-          "range": ">=1.15.0 <1.18.0"
-        },
-        {
-          "source": 1123971,
-          "name": "axios",
-          "dependency": "axios",
-          "title": "Axios: Nested axios option objects can consume polluted prototype values",
-          "url": "https://github.com/advisories/GHSA-7q8q-rj6j-mhjq",
-          "severity": "moderate",
-          "cwe": [
-            "CWE-1321"
-          ],
-          "cvss": {
-            "score": 0,
-            "vectorString": null
-          },
-          "range": ">=1.0.0 <1.18.0"
-        },
-        {
-          "source": 1123973,
-          "name": "axios",
-          "dependency": "axios",
-          "title": "Axios: HTTP/2 streamed uploads bypass `maxBodyLength`",
-          "url": "https://github.com/advisories/GHSA-mwf2-3pr3-8698",
-          "severity": "moderate",
-          "cwe": [
-            "CWE-400"
-          ],
-          "cvss": {
-            "score": 0,
-            "vectorString": null
-          },
-          "range": ">=1.13.0 <1.18.0"
-        },
-        {
           "source": 1147949,
           "name": "axios",
           "dependency": "axios",
@@ -461,6 +379,88 @@
           "cwe": [
             "CWE-400",
             "CWE-770"
+          ],
+          "cvss": {
+            "score": 0,
+            "vectorString": null
+          },
+          "range": ">=1.0.0 <1.18.0"
+        },
+        {
+          "source": 1153175,
+          "name": "axios",
+          "dependency": "axios",
+          "title": "Axios: HTTP/2 streamed uploads bypass `maxBodyLength`",
+          "url": "https://github.com/advisories/GHSA-mwf2-3pr3-8698",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-400"
+          ],
+          "cvss": {
+            "score": 0,
+            "vectorString": null
+          },
+          "range": ">=1.13.0 <1.18.0"
+        },
+        {
+          "source": 1153180,
+          "name": "axios",
+          "dependency": "axios",
+          "title": "Axios: Nested axios option objects can consume polluted prototype values",
+          "url": "https://github.com/advisories/GHSA-7q8q-rj6j-mhjq",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-1321"
+          ],
+          "cvss": {
+            "score": 0,
+            "vectorString": null
+          },
+          "range": ">=1.0.0 <1.18.0"
+        },
+        {
+          "source": 1153182,
+          "name": "axios",
+          "dependency": "axios",
+          "title": "Axios: Fetch adapter `ReadableStream` uploads bypass `maxBodyLength`",
+          "url": "https://github.com/advisories/GHSA-jqh4-m9w3-8hp9",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-770"
+          ],
+          "cvss": {
+            "score": 0,
+            "vectorString": null
+          },
+          "range": ">=1.7.0 <1.18.0"
+        },
+        {
+          "source": 1153184,
+          "name": "axios",
+          "dependency": "axios",
+          "title": "Axios: NO_PROXY bypass for 0.0.0.0 local addresses in axios",
+          "url": "https://github.com/advisories/GHSA-f4gw-2p7v-4548",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-183",
+            "CWE-918"
+          ],
+          "cvss": {
+            "score": 0,
+            "vectorString": null
+          },
+          "range": ">=1.15.0 <1.18.0"
+        },
+        {
+          "source": 1153185,
+          "name": "axios",
+          "dependency": "axios",
+          "title": "Axios: Excessive recursion in formDataToJSON can cause denial of service",
+          "url": "https://github.com/advisories/GHSA-42h9-826w-cgv3",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-400",
+            "CWE-674"
           ],
           "cvss": {
             "score": 0,
