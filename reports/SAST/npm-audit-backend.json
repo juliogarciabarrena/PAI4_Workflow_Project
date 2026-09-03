@@ -3,7 +3,7 @@
   "vulnerabilities": {
     "body-parser": {
       "name": "body-parser",
-      "severity": "moderate",
+      "severity": "low",
       "isDirect": false,
       "via": [
         {
@@ -21,27 +21,12 @@
             "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:L"
           },
           "range": "<1.20.6"
-        },
-        "qs"
+        }
       ],
       "effects": [],
-      "range": "<=1.20.5 || 2.0.0-beta.1 - 2.0.2",
+      "range": "<1.20.6",
       "nodes": [
         "node_modules/body-parser"
-      ],
-      "fixAvailable": true
-    },
-    "express": {
-      "name": "express",
-      "severity": "moderate",
-      "isDirect": true,
-      "via": [
-        "qs"
-      ],
-      "effects": [],
-      "range": "4.21.0 - 4.22.1 || 5.0.0-alpha.1 - 5.0.1",
-      "nodes": [
-        "node_modules/express"
       ],
       "fixAvailable": true
     },
@@ -65,13 +50,43 @@
             "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
           },
           "range": ">=6.11.1 <=6.15.1"
+        },
+        {
+          "source": 1158506,
+          "name": "qs",
+          "dependency": "qs",
+          "title": "qs array-limit bypass via bracket-key comma parsing",
+          "url": "https://github.com/advisories/GHSA-x5fp-wj9c-mxmx",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-770"
+          ],
+          "cvss": {
+            "score": 3.7,
+            "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:L"
+          },
+          "range": ">=6.14.2 <=6.15.3"
+        },
+        {
+          "source": 1158507,
+          "name": "qs",
+          "dependency": "qs",
+          "title": "qs: Denial of Service via Attacker Controlled isBuffer",
+          "url": "https://github.com/advisories/GHSA-4mjr-xmp4-gh2g",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-248",
+            "CWE-703"
+          ],
+          "cvss": {
+            "score": 5.3,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+          },
+          "range": ">=2.2.5 <6.16.0"
         }
       ],
-      "effects": [
-        "body-parser",
-        "express"
-      ],
-      "range": "6.11.1 - 6.15.1",
+      "effects": [],
+      "range": "2.2.5 - 6.15.3",
       "nodes": [
         "node_modules/qs"
       ],
@@ -81,11 +96,11 @@
   "metadata": {
     "vulnerabilities": {
       "info": 0,
-      "low": 0,
-      "moderate": 3,
+      "low": 1,
+      "moderate": 1,
       "high": 0,
       "critical": 0,
-      "total": 3
+      "total": 2
     },
     "dependencies": {
       "prod": 72,
