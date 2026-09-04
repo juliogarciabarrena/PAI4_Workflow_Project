@@ -1,114 +1,39 @@
 {
-  "auditReportVersion": 2,
-  "vulnerabilities": {
-    "body-parser": {
-      "name": "body-parser",
-      "severity": "low",
-      "isDirect": false,
-      "via": [
-        {
-          "source": 1123977,
-          "name": "body-parser",
-          "dependency": "body-parser",
-          "title": "body-parser vulnerable to denial of service when invalid limit value silently disables size enforcement",
-          "url": "https://github.com/advisories/GHSA-v422-hmwv-36x6",
-          "severity": "low",
-          "cwe": [
-            "CWE-770"
-          ],
-          "cvss": {
-            "score": 3.7,
-            "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:L"
-          },
-          "range": "<1.20.6"
-        }
-      ],
-      "effects": [],
-      "range": "<1.20.6",
-      "nodes": [
-        "node_modules/body-parser"
-      ],
-      "fixAvailable": true
-    },
-    "qs": {
-      "name": "qs",
-      "severity": "moderate",
-      "isDirect": false,
-      "via": [
-        {
-          "source": 1119502,
-          "name": "qs",
-          "dependency": "qs",
-          "title": "qs has a remotely triggerable DoS: qs.stringify crashes with TypeError on null/undefined entries in comma-format arrays when encodeValuesOnly is set",
-          "url": "https://github.com/advisories/GHSA-q8mj-m7cp-5q26",
-          "severity": "moderate",
-          "cwe": [
-            "CWE-476"
-          ],
-          "cvss": {
-            "score": 5.3,
-            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
-          },
-          "range": ">=6.11.1 <=6.15.1"
-        },
-        {
-          "source": 1158506,
-          "name": "qs",
-          "dependency": "qs",
-          "title": "qs array-limit bypass via bracket-key comma parsing",
-          "url": "https://github.com/advisories/GHSA-x5fp-wj9c-mxmx",
-          "severity": "moderate",
-          "cwe": [
-            "CWE-770"
-          ],
-          "cvss": {
-            "score": 3.7,
-            "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:L"
-          },
-          "range": ">=6.14.2 <=6.15.3"
-        },
-        {
-          "source": 1158507,
-          "name": "qs",
-          "dependency": "qs",
-          "title": "qs: Denial of Service via Attacker Controlled isBuffer",
-          "url": "https://github.com/advisories/GHSA-4mjr-xmp4-gh2g",
-          "severity": "moderate",
-          "cwe": [
-            "CWE-248",
-            "CWE-703"
-          ],
-          "cvss": {
-            "score": 5.3,
-            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
-          },
-          "range": ">=2.2.5 <6.16.0"
-        }
-      ],
-      "effects": [],
-      "range": "2.2.5 - 6.15.3",
-      "nodes": [
-        "node_modules/qs"
-      ],
-      "fixAvailable": true
-    }
+  "message": "503 Service Unavailable - POST https://registry.npmjs.org/-/npm/v1/security/audits/quick - Service Unavailable",
+  "method": "POST",
+  "uri": "https://registry.npmjs.org/-/npm/v1/security/audits/quick",
+  "headers": {
+    "date": [
+      "Fri, 04 Sep 2026 08:03:11 GMT"
+    ],
+    "content-type": [
+      "application/json"
+    ],
+    "content-length": [
+      "31"
+    ],
+    "connection": [
+      "keep-alive"
+    ],
+    "set-cookie": [
+      "__cf_bm=u_x54e_2eAa11DRVUz9K1H2UCz7i_D0N7ZJ4vZTBROM-1788508871.279983-1.0.1.1-.0ikq7QRzrxHHWOC8yn0pB.XjcbV1.IPkgQp7RDpM.mVyxayDt9qSnrTsXcIKZ.SsdHE0gwLeKbkn_4B_lHqMfLTD._HBFcc1asaShOoLt8rKtNpEFMYt_i7xO.BxCmB; HttpOnly; SameSite=None; Secure; Path=/; Domain=npmjs.org; Expires=Fri, 04 Sep 2026 08:33:11 GMT"
+    ],
+    "server": [
+      "cloudflare"
+    ],
+    "cf-ray": [
+      "a35b76fd7f8a69f1-SEA"
+    ],
+    "x-fetch-attempts": [
+      "1"
+    ]
   },
-  "metadata": {
-    "vulnerabilities": {
-      "info": 0,
-      "low": 1,
-      "moderate": 1,
-      "high": 0,
-      "critical": 0,
-      "total": 2
-    },
-    "dependencies": {
-      "prod": 72,
-      "dev": 307,
-      "optional": 1,
-      "peer": 0,
-      "peerOptional": 0,
-      "total": 378
-    }
+  "statusCode": 503,
+  "body": {
+    "error": "Service Unavailable"
+  },
+  "error": {
+    "summary": "",
+    "detail": ""
   }
 }
