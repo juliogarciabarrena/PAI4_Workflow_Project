@@ -132,7 +132,7 @@
           "range": ">=2.2.5 <6.16.0"
         },
         {
-          "source": 1243452,
+          "source": 1243687,
           "name": "qs",
           "dependency": "qs",
           "title": "qs : qs.stringify with arrayFormat 'comma' throws an uncaught TypeError on array elements carrying a non-callable own toString (DoS)",
